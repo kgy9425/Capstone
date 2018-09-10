@@ -1,5 +1,5 @@
 # Capstone Design 
-# Team 友GI 
+Team 友GI 
 Team member 김가영, 박미지, 박수현
 
 ## Description
