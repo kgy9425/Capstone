@@ -19,7 +19,7 @@ public class ChatbotActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chatmain);
+        setContentView(R.layout.activity_chatbot);
 
         // 커스텀 어댑터 생성
         m_Adapter = new CustomAdapter();
@@ -33,8 +33,8 @@ public class ChatbotActivity extends Activity {
         m_Adapter.add("안녕 챗봇",1);
         m_Adapter.add("어디가 아프신가요?",0);
         m_Adapter.add("심장이 두근거려",1);
-        m_Adapter.add("심장이 두근거릴 때는 정동병원",0);
-        m_Adapter.add("2015/11/20",2);
+        m_Adapter.add("심장이 두근거릴 때는 정 동 병 원",0);
+        m_Adapter.add("2018/10/04",2);
         m_Adapter.add("안녕 챗봇",1);
         m_Adapter.add("어디가 아프신가요?",0);
 
