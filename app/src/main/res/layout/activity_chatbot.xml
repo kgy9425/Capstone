@@ -1,59 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@drawable/back_ground"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    >
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:id="@+id/im1"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        >
-        <FrameLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="75dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginRight="10dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-            <ListView
-                android:id="@+id/listView1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:cacheColorHint="#00000000"
-                android:divider="#000000"
-                android:listSelector="#00000000"
-                android:transcriptMode="alwaysScroll" />
-        </FrameLayout>
-    </LinearLayout>
-    <LinearLayout
+
+    <com.github.bassaer.chatmessageview.view.ChatView
+        android:id="@+id/chat_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#81BEF7"
-        android:layout_below="@id/im1"
-        android:orientation="horizontal">
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="5dp"/>
 
-        <TextView
-            android:layout_width="20dp"
-            android:layout_height="wrap_content"
-            />
-        <EditText
-            android:hint="메세지를 입력하세요"
-            android:id="@+id/editText1"
-            android:inputType="textMultiLine"
-            android:maxLines="4"
-            android:layout_width="270dp"
-            android:layout_height="wrap_content"/>
-
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="전 송" />
-
-    </LinearLayout>
 </LinearLayout>
