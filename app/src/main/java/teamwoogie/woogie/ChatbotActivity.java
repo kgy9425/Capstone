@@ -1,5 +1,6 @@
 package teamwoogie.woogie;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import com.github.bassaer.chatmessageview.util.TimeUtils;
 
 import com.github.bassaer.chatmessageview.model.Message;
 import com.github.bassaer.chatmessageview.view.ChatView;
@@ -60,7 +62,7 @@ public class ChatbotActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         //new message
         final Message message = new Message.Builder()
-                .setUser(chat)
+                .setUser(user)
                 .setRightMessage(true)
                 .setMessageText(chatView.getInputText())
                 .hideIcon(true)
@@ -168,15 +170,30 @@ public class ChatbotActivity extends AppCompatActivity implements View.OnClickLi
 
                 //Update view to bot says
                 final Message receivedMessage = new Message.Builder()
-                        .setUser(user)
+                        .setUser(chat)
                         .setRightMessage(false)
                         .hideIcon(true)
                         .setMessageText(speech)
                         .build();
                 chatView.receive(receivedMessage);
+
+                chatView.setOnBubbleClickListener(new Message.OnBubbleClickListener() {
+                    @Override
+                    public void onClick(Message message) {
+                        if(message.getUser()==chat) {
+                            Intent intent = new Intent(getApplicationContext(), ShowMapActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                });
+
             }
         });
+
     }
+
+
+
 
     private void onError(final AIError error) {
         runOnUiThread(new Runnable() {
@@ -191,11 +208,11 @@ public class ChatbotActivity extends AppCompatActivity implements View.OnClickLi
         int myId = 0;
         Bitmap icon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_foreground);
         String myName = "";
-        chat = new Users(myId, myName,icon);
+        user = new Users(myId, myName,icon);
 
         int botId = 1;
         String botName = "";
-        user = new Users(botId, botName, icon);
+        chat = new Users(botId, botName, icon);
 
         chatView = findViewById(R.id.chat_view);
         chatView.setRightBubbleColor(ContextCompat.getColor(this, R.color.UserColor));

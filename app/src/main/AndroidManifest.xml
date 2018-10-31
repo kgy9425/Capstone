@@ -3,6 +3,8 @@
     package="teamwoogie.woogie">
     <!--chatbot 추가 인터넷-->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
 
     <application
         android:allowBackup="true"
@@ -20,6 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ChatbotActivity"> </activity>
+        <activity android:name=".ShowMapActivity"> </activity>
         <activity android:name=".AlarmActivity"> </activity>
         <activity android:name=".HealthActivity"> </activity>
         <activity android:name=".AddAlarmActivity"> </activity>
