@@ -8,7 +8,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textSize="30sp"
-        android:text="Map Activity" />
+        android:id="@+id/temp_text"
+        android:text="Map Activity"/>
 
 </LinearLayout>
 

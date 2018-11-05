@@ -168,20 +168,30 @@ public class ChatbotActivity extends AppCompatActivity implements View.OnClickLi
                     }
                 }
 
+                final String answering;
+                if(speech.equals("어디가 아프신가요?")||speech.equals("어디가 불편하신가요?"))
+                    answering=speech;
+                else
+                    answering = "이 증상에 맞는 병원은"+speech+" 입니다. 주위 병원 정보 보기☞";
                 //Update view to bot says
                 final Message receivedMessage = new Message.Builder()
                         .setUser(chat)
                         .setRightMessage(false)
                         .hideIcon(true)
-                        .setMessageText(speech)
+                        .setMessageText(answering)
                         .build();
+
+
                 chatView.receive(receivedMessage);
+
+                final String hospital_name=speech;
 
                 chatView.setOnBubbleClickListener(new Message.OnBubbleClickListener() {
                     @Override
                     public void onClick(Message message) {
-                        if(message.getUser()==chat) {
+                        if(message.getUser()==chat&&answering!=speech) {
                             Intent intent = new Intent(getApplicationContext(), ShowMapActivity.class);
+                            intent.putExtra("name",hospital_name);
                             startActivity(intent);
                         }
                     }
