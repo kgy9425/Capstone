@@ -180,7 +180,7 @@ public class ChatbotActivity extends AppCompatActivity implements View.OnClickLi
                 if(speech.equals("어디가 아프신가요?")||speech.equals("어디가 불편하신가요?"))
                     answering=speech;
                 else
-                    answering = "이 증상에 맞는 병원은"+speech+" 입니다. 주위 병원 정보 보기☞";
+                    answering = "이 증상에 맞는 병원은 "+speech+" 입니다. 주위 병원 정보 보기☞";
                 //Update view to bot says
                 final Message receivedMessage = new Message.Builder()
                         .setUser(chat)

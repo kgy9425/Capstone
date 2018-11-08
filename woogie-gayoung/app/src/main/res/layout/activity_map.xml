@@ -7,17 +7,6 @@
         tools:context=".ShowMapActivity"
         android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="30sp"
-        android:id="@+id/temp_text"
-        android:text="Map Activity"
-        android:textColor="#FFFFFF"
-        />
-
-
 
     <fragment
             android:id="@+id/map"

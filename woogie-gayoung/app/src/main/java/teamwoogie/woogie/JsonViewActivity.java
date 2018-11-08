@@ -10,7 +10,13 @@ import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.WindowManager;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -18,72 +24,56 @@ import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class JsonViewActivity extends AppCompatActivity {
 
+
+    StringBuilder sb = new StringBuilder();
+
     public static final int LOAD_SUCCESS = 101;
-
     private static final String TAG = "googlemap_example";
+    private String location_x = Double.toString(37.566584) ;
+    private String location_y = Double.toString(126.974443);
+    private String Hospital_Name ;
+    private String REQUEST_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + location_x +",%" + location_y + "&radius=1500&keyword= " + Hospital_Name + "&key=AIzaSyAO3PnnhQGoMHOaTTwtcNlb8bilkPEILR4";
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+       // https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=37.564214,%20127.001699&radius=1500&keyword=%EC%99%B8%EA%B3%BC&key=AIzaSyAO3PnnhQGoMHOaTTwtcNlb8bilkPEILR4
+    //private ProgressDialog progressDialog;
+    private TextView JSONText;
+    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-    public String HOSPITALNAME;
+    private List<HashMap<String,String>> Hospital_infoList = null;
+    private SimpleAdapter adapter = null;
 
-    public JsonViewActivity() {
-        HOSPITALNAME = null;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_json_view);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
-                WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
+        Hospital_infoList = new ArrayList<HashMap<String,String>>();
 
+     //   String[] from = new String[]{"name", "lat", "lng"};
+     //   int[] to = new int[] {R.id.name, R.id.lat, R.id.lng};
+
+     //   ListView H_listview_List = (ListView)findViewById(R.id.listview_main_list);
+     //   adapter = new SimpleAdapter(this, Hospital_infoList, R.layout.activity_json_data_view, from, to);
+     //   H_listview_List.setAdapter(adapter);
 
         JSONText = (TextView)findViewById(R.id.jsontext);
         JSONText.setMovementMethod(new ScrollingMovementMethod());
 
         Intent intent = getIntent();
-        //hospital_name : 병원 종류
-        HOSPITALNAME = (String) intent.getExtras().get("name");
-
-
+        Hospital_Name = intent.getStringExtra("name");
+        //location_x = intent.getStringExtra("current_position_x");
+        //location_y = intent.getStringExtra("current_position_y");
 
         getJSON();
+
     }
-
-
-
-    public Double LOCATION_X = 37.564214, LOCATION_Y =20127.001699 ;
-    private String location_x = Double.toString(LOCATION_X);
-    private String location_y = Double.toString(LOCATION_Y);
-
-    public String hospital_name = HOSPITALNAME;
-   // public String CHATBOT_VALUE = final String hospital_name;
-
-
-
-
-    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-
-    /*
-            private String SEARCH_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/";
-            private String API_KEY = "&api_key=AIzaSyAO3PnnhQGoMHOaTTwtcNlb8bilkPEILR4";
-           // private String LOCATION = "&location = "+ LOCATION_X+","+ LOCATION_Y;
-            private String FORMAT = "&format=json?";
-            private String SEARCH_TEXT = "keyword="+CHATBOT_VALUE;
-            private String REQUEST_URL = SEARCH_URL + FORMAT + LOCATION_X +", "+LOCATION_Y + "radius=1500" + SEARCH_TEXT + API_KEY ;*/
-    private String REQUEST_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + location_x + ",%" + location_y + "&radius=1500&keyword= " + hospital_name + "&key=AIzaSyAO3PnnhQGoMHOaTTwtcNlb8bilkPEILR4";
-    // https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=37.564214,%20127.001699&radius=1500&keyword=%EC%99%B8%EA%B3%BC&key=AIzaSyAO3PnnhQGoMHOaTTwtcNlb8bilkPEILR4
-    //private ProgressDialog progressDialog;
-    private TextView JSONText;
-
-
-    //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-
-
 
 
     //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -113,7 +103,7 @@ public class JsonViewActivity extends AppCompatActivity {
             }
         }
     }
-    /////////////////////////////////////검색 REQUEST //////////////////////////////////////////////////////////
+    /////////////////////////////////////검색 REQUEST /////////////////////////////////////////////////////////
     public void  getJSON() {
 
         Thread thread = new Thread(new Runnable() {
@@ -138,7 +128,9 @@ public class JsonViewActivity extends AppCompatActivity {
                     httpURLConnection.setRequestMethod("GET");
                     httpURLConnection.setUseCaches(false);
                     httpURLConnection.connect();
+
                     int responseStatusCode = httpURLConnection.getResponseCode();
+
 
                     InputStream inputStream;
                     if (responseStatusCode == HttpURLConnection.HTTP_OK) {
@@ -167,12 +159,68 @@ public class JsonViewActivity extends AppCompatActivity {
                     result = e.toString();
                 }
 
-                Message message = mHandler.obtainMessage(LOAD_SUCCESS, result);
-                mHandler.sendMessage(message);
+                if (jsonParser(result)) {
+                    Message message = mHandler.obtainMessage(LOAD_SUCCESS, result);
+                    mHandler.sendMessage(message);
+                }
             }
         });
         thread.start();
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+/////////// json parsing ///////////////////////////////////////////////////////
+    public boolean jsonParser(String jsonString){
+
+
+        if (jsonString == null ) return false;
+
+        //jsonString = jsonString.replace("jsonFlickrApi(", "");
+        //jsonString = jsonString.replace(")", "");
+
+        try {
+
+            JSONArray jsonArray ;
+            JSONObject jsonObject = new JSONObject(jsonString);
+            jsonArray = jsonObject.getJSONArray("results");
+
+            Hospital_infoList.clear();
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+
+                // 결과별로 결과 object 얻기
+                JSONObject  result = jsonArray.getJSONObject(i);
+
+                // 위도, 경도 얻기
+                JSONObject  geo = result.getJSONObject("geometry");
+                JSONObject  location = geo.getJSONObject("location");
+                String H_lat = location.getString("lat");
+                String H_lng = location.getString("lng");
+
+                // 이름 얻기
+                String H_name = result.getString("name");
+
+
+
+                HashMap<String, String> hospitalinfoMap = new HashMap<String, String>();
+                hospitalinfoMap.put("name", H_name);
+                hospitalinfoMap.put("lat", H_lat);
+                hospitalinfoMap.put("lng", H_lng);
+
+                Hospital_infoList.add(hospitalinfoMap);
+            }
+
+
+            return true;
+        } catch (JSONException e) {
+
+            Log.d(TAG, e.toString() );
+        }
+        return false;
+    }
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 

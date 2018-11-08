@@ -4,21 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".JsonViewActivity">
+    tools:context=".ShowMapActivity"
+    android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.9"
-        android:layout_margin="15dp"
-        android:padding="15dp"
-        android:maxLines="100"
-        android:id="@+id/jsontext"
-        android:singleLine="false"
-        android:scrollbars="vertical"
-        android:scrollHorizontally="false"
-        android:text="" />
+
+
+   <TextView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:id="@+id/jsontext"/>
+
+
 
 
 </LinearLayout>
