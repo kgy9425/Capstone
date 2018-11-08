@@ -35,9 +35,7 @@
         <activity android:name=".ShowMapActivity" />
         <activity android:name=".AlarmActivity" />
         <activity android:name=".HealthActivity" />
-        <activity android:name=".AddAlarmActivity" />
-        <activity android:name=".MapViewActivity" />
-        <activity android:name=".JsonViewActivity"></activity>
+        <activity android:name=".AddAlarmActivity" ></activity>
     </application>
 
 </manifest>

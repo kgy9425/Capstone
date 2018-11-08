@@ -112,7 +112,7 @@ public class ShowMapActivity extends AppCompatActivity
         Intent intent = getIntent();
         //hospital_name : 병원 종류
        //final String hospital_name= (String) intent.getExtras().get("name");
-       final String hospital_name = intent.getStringExtra("name");
+        final String hospital_name = intent.getStringExtra("name");
 
         //임시로 병원 종류 보여주려고
       //  temp=(TextView)findViewById(R.id.temp_text);
@@ -130,11 +130,11 @@ public class ShowMapActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getApplicationContext(), JsonViewActivity.class);
-                intent.putExtra("name",hospital_name);
-                intent.putExtra("current_position_x", Double.toString(mCurrentLocatiion.getLatitude()));
-                intent.putExtra("current_position_y", Double.toString(mCurrentLocatiion.getLongitude()));
-                startActivity(intent);
+             //   Intent intent = new Intent(getApplicationContext(), JsonViewActivity.class);
+            //   intent.putExtra("name",hospital_name);
+             //   intent.putExtra("current_position_x", Double.toString(mCurrentLocatiion.getLatitude()));
+              //  intent.putExtra("current_position_y", Double.toString(mCurrentLocatiion.getLongitude()));
+               // startActivity(intent);
 
             }
         });

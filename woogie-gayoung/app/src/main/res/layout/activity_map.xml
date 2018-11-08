@@ -23,7 +23,7 @@
             android:layout_height="44dp"
             android:layout_margin="15dp"
             android:layout_weight="0.1"
-            android:text="JSON 가져오기"
+            android:text="근처 병원 찾기"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="63dp"
             tools:layout_editor_absoluteY="467dp" />
