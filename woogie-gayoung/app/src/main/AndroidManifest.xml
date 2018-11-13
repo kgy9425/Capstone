@@ -41,6 +41,7 @@
         <activity android:name=".AlarmResultActivity" />
         <activity android:name=".ShowHospitalInfoActivity"/>
         <activity android:name=".AfterLoginActivity"/>
+        <activity android:name=".SignupActivity"/>
 
     </application>
 
