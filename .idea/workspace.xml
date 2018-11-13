@@ -16,144 +16,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="20d142a7-3399-463a-99d5-cb7cce7b1b32" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/teamwoogie/woogie/AlarmReceiver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/teamwoogie/woogie/AlarmResultActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/teamwoogie/woogie/AlarmSoundService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/alarm_background.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_alarmresult.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/proguard-rules.pro" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/androidTest/java/com/example/tntnr/project_woogie/ExampleInstrumentedTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/java/com/example/tntnr/project_woogie/InfoActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/java/com/example/tntnr/project_woogie/MainActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/res/layout/infoactivity.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/res/mipmap-hdpi/ic_launcher_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/res/mipmap-mdpi/ic_launcher_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/res/mipmap-xhdpi/ic_launcher_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/main/res/values/styles.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/app/src/test/java/com/example/tntnr/project_woogie/ExampleUnitTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/gradle.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/json (2).json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/settings.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_WOOGIE/woogie" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/proguard-rules.pro" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/androidTest/java/teamwoogie/woogie/ExampleInstrumentedTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/icon-web.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/java/teamwoogie/woogie/AddAlarmActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/java/teamwoogie/woogie/AlarmActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/java/teamwoogie/woogie/ChatbotActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/java/teamwoogie/woogie/DiseaseDBDO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/java/teamwoogie/woogie/DiseaseRecordDBDO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/java/teamwoogie/woogie/HealthActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/java/teamwoogie/woogie/LanguageConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/java/teamwoogie/woogie/MainActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/java/teamwoogie/woogie/MonthlyDiseaseDBDO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/java/teamwoogie/woogie/ShowMapActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/java/teamwoogie/woogie/SplashActivity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/java/teamwoogie/woogie/UserDBDO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/java/teamwoogie/woogie/Users.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/drawable/add_alarm_button.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/drawable/back_ground.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/drawable/button_alarm_origin.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/drawable/button_alarm_pressed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/drawable/button_chatbot_origin.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/drawable/button_chatbot_pressed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/drawable/button_health_origin.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/drawable/button_health_pressed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/drawable/datebg.9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/drawable/ic_launcher_background.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/drawable/inbox2.9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/drawable/loading.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/drawable/outbox2.9.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/layout/activity_addalarm.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/layout/activity_alarm.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/layout/activity_chatbot.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/layout/activity_health.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/layout/activity_main.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/layout/activity_map.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/layout/activity_splash.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/mipmap-anydpi-v26/icon.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/mipmap-anydpi-v26/icon_round.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/mipmap-hdpi/ic_launcher_foreground.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/mipmap-hdpi/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/mipmap-hdpi/icon_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/mipmap-mdpi/ic_launcher_foreground.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/mipmap-mdpi/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/mipmap-mdpi/icon_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/mipmap-xhdpi/ic_launcher_foreground.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/mipmap-xhdpi/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/mipmap-xhdpi/icon_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/mipmap-xxhdpi/ic_launcher_foreground.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/mipmap-xxhdpi/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/mipmap-xxhdpi/icon_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/mipmap-xxxhdpi/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/mipmap-xxxhdpi/icon_round.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/raw/awsconfiguration.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/values/colors.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/values/strings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/values/styles.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/test/java/teamwoogie/woogie/ExampleUnitTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/build.gradle" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/gradle.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/id_rsa" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/id_rsa.pub" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/woogie-gayoung/settings.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gitwoogie" beforeDir="false" afterPath="$PROJECT_DIR$/Gitwoogie" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/teamwoogie/woogie/AddAlarmActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/teamwoogie/woogie/AddAlarmActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/teamwoogie/woogie/AlarmActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/teamwoogie/woogie/AlarmActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/teamwoogie/woogie/MyAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/java/teamwoogie/woogie/MyAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/teamwoogie/woogie/MyItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/java/teamwoogie/woogie/MyItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_addalarm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_addalarm.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_alarm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_alarm.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/listview_alarm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/woogie-gayoung/app/src/main/res/layout/listview_alarm.xml" afterDir="false" />
-    </list>
+    <list default="true" id="20d142a7-3399-463a-99d5-cb7cce7b1b32" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -2524,7 +2387,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="960" />
     <option name="width" value="960" />
     <option name="height" value="1025" />
@@ -2682,8 +2545,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="697" extended-state="7" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1295" height="697" extended-state="6" />
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="7" />
       <window_info anchor="bottom" id="TODO" order="6" />
