@@ -1,4 +1,4 @@
-# Capstone Design 
+\# Capstone Design 
 Project name : 友GI 
 
 Teamname 友ㄱㄱ Ga-Young Kim, Mi-Ji Park, Soo-Hyun Park
