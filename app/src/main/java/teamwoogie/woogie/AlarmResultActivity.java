@@ -19,8 +19,14 @@ public class AlarmResultActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         TextView alarmTime = (TextView) findViewById(R.id.alarmTime);
+        TextView repeatTime = (TextView) findViewById(R.id.repeatTime);
+
+
         String tempTime = intent.getStringExtra("alarm_time");
+        String temp2Time = intent.getStringExtra("repeat_time");
+
         alarmTime.setText(tempTime);
+        repeatTime.setText(temp2Time);
 
     }
 }
