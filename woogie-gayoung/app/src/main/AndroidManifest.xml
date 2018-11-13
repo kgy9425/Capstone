@@ -40,6 +40,7 @@
         <activity android:name=".ShowHospitalMapActivity" />
         <activity android:name=".AlarmResultActivity" />
         <activity android:name=".ShowHospitalInfoActivity"/>
+        <activity android:name=".AfterLoginActivity"/>
 
     </application>
 
