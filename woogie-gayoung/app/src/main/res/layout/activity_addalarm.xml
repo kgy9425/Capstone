@@ -43,16 +43,24 @@
                 android:id="@+id/reset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="set"
-                android:layout_gravity="left" />
+                android:layout_gravity="left"
+                android:text="reset" />
 
         </LinearLayout>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/text_view"
+    <EditText
+        android:id="@+id/repeat"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="반복될 시간을 입력하세요"
+        android:inputType="number"/>
 
-    </LinearLayout>
+    <Button
+        android:id="@+id/picture"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="설정할 사진 찍기" />
+
+</LinearLayout>

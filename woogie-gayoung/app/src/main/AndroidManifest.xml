@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     //위치 정보 접근을 위한 퍼미션 추가
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -35,7 +36,11 @@
         <activity android:name=".ShowMapActivity" />
         <activity android:name=".AlarmActivity" />
         <activity android:name=".HealthActivity" />
-        <activity android:name=".AddAlarmActivity" ></activity>
+        <activity android:name=".AddAlarmActivity" />
+        <activity android:name=".ShowHospitalMapActivity" />
+        <activity android:name=".AlarmResultActivity" />
+        <activity android:name=".ShowHospitalInfoActivity"/>
+
     </application>
 
 </manifest>

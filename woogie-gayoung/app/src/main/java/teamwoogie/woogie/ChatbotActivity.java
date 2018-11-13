@@ -179,8 +179,13 @@ public class ChatbotActivity extends AppCompatActivity implements View.OnClickLi
                 final String answering;
                 if(speech.equals("어디가 아프신가요?")||speech.equals("어디가 불편하신가요?"))
                     answering=speech;
-                else
+                else if(speech.equals("치과")||speech.equals("이비인후과")||speech.equals("피부과")||
+                        speech.equals("한의학")||speech.equals("정형외과")||speech.equals("신경외과")||
+                        speech.equals("안과")||speech.equals("내과")||speech.equals("정신과")||
+                        speech.equals("성형외과")||speech.equals("외과")||speech.equals("산부인과")||speech.equals("응급"))
                     answering = "이 증상에 맞는 병원은 "+speech+" 입니다. 주위 병원 정보 보기☞";
+                else
+                    answering ="죄송해요. 다시 말씀해 주세요.";
                 //Update view to bot says
                 final Message receivedMessage = new Message.Builder()
                         .setUser(chat)
@@ -197,7 +202,8 @@ public class ChatbotActivity extends AppCompatActivity implements View.OnClickLi
                 chatView.setOnBubbleClickListener(new Message.OnBubbleClickListener() {
                     @Override
                     public void onClick(Message message) {
-                        if(message.getUser()==chat&&answering!=speech) {
+                        if(message.getUser()==chat&&answering!=speech||
+                                answering.equals("죄송해요. 잘 못 이해 한 것 같아요.")  ) {
                             Intent intent = new Intent(getApplicationContext(), ShowMapActivity.class);
                             intent.putExtra("name",hospital_name);
                             startActivity(intent);
@@ -258,4 +264,3 @@ public class ChatbotActivity extends AppCompatActivity implements View.OnClickLi
         aiDataService = new AIDataService(this, config);
     }
 }
-
