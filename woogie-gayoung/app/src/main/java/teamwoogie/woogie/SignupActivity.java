@@ -27,6 +27,7 @@ public class SignupActivity extends AppCompatActivity {
 
 
     }
+
     //여기 Dynamo insert문 추가
     public void signUpCompeleteClicked(View view){
 
