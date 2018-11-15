@@ -4,25 +4,43 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+
 import android.widget.EditText;
-
-import com.amazonaws.auth.AWSCredentialsProvider;
-import com.amazonaws.mobile.client.AWSMobileClient;
-import com.amazonaws.mobile.config.AWSConfiguration;
-
 import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.widget.Button;
+import android.widget.ViewFlipper;
 
-
-//각 activity마다 저장
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
 
 public class MainActivity extends AppCompatActivity {
 
-    DynamoDBMapper dynamoDBMapper;
     EditText login_id, password;
     String strLogin, strPassword;
+
+    ViewFlipper Vf;
+    Button BtnSignIn, BtnSignUp;
+    EditText inputID, inputPW;
+    HttpPost httppost;
+    StringBuffer buffer;
+    HttpResponse response;
+    HttpClient httpclient;
+    List<NameValuePair> nameValuePairs;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,23 +59,10 @@ public class MainActivity extends AppCompatActivity {
         strPassword = password.getText().toString();
 
 
-        /////// 가영이 DB부분
-        AWSMobileClient.getInstance().initialize(this).execute();
-
-        AWSCredentialsProvider credentialsProvider = AWSMobileClient.getInstance().getCredentialsProvider();
-        AWSConfiguration configuration = AWSMobileClient.getInstance().getConfiguration();
-
-
-        // Add code to instantiate a AmazonDynamoDBClient
-        AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(credentialsProvider);
-
-        this.dynamoDBMapper = DynamoDBMapper.builder()
-                .dynamoDBClient(dynamoDBClient)
-                .awsConfiguration(configuration)
-                .build();
 
 
     }
+
 
     /////////
     //로그인클릭시 // 여기서 디비 비교해서 넘어갈수잇는지아닌지
