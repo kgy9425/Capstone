@@ -10,13 +10,14 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        Log.e("bsos1202", "SplashActivity income!");
         Handler hd = new Handler();
         hd.postDelayed(new Runnable(){
             @Override
             public void run() {
                 finish();
             }
-        },1000); //3초후 이미지 닫기
+        },1000); //5초후 이미지 닫기
     }
 }
 

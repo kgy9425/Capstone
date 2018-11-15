@@ -10,7 +10,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/icon"
@@ -41,9 +40,6 @@
         <activity android:name=".ShowHospitalMapActivity" />
         <activity android:name=".AlarmResultActivity" />
         <activity android:name=".ShowHospitalInfoActivity"/>
-        <activity android:name=".AfterLoginActivity"/>
-        <activity android:name=".SignupActivity"/>
-
 
     </application>
 

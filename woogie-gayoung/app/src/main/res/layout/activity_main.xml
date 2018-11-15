@@ -4,73 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_background"
-    tools:context=".MainActivity">
-
-    <EditText
-        android:id="@+id/login_id"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="226dp"
-        android:layout_marginBottom="15dp"
-        android:hint="Your ID"
-        app:layout_constraintBottom_toTopOf="@+id/password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="42dp"
-        android:hint="Your password"
-        app:layout_constraintBottom_toTopOf="@+id/login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_id" />
+    android:background="@drawable/back_ground"
+    android:onClick="chatbotClicked"
+    tools:context=".MainActivity"
+    tools:layout_editor_absoluteY="25dp">
 
     <ImageButton
-        android:id="@+id/login"
+        android:id="@+id/chatbot"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="59dp"
-        android:layout_marginLeft="59dp"
-        android:layout_marginEnd="59dp"
-
-        android:layout_marginRight="59dp"
-        android:layout_marginBottom="23dp"
-        android:adjustViewBounds="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
         android:background="@android:color/transparent"
-        android:onClick="loginClicked"
+        android:onClick="chatbotClicked"
         android:padding="0dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/login_button"
-        app:layout_constraintBottom_toTopOf="@+id/signup"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/button_chatbot_origin"
+        app:layout_constraintBottom_toBottomOf="@+id/alarm"
+        app:layout_constraintEnd_toStartOf="@+id/alarm"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toTopOf="@+id/alarm" />
 
     <ImageButton
-        android:id="@+id/signup"
+        android:id="@+id/alarm"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="59dp"
-        android:layout_marginLeft="59dp"
-        android:layout_marginEnd="59dp"
-        android:layout_marginRight="59dp"
-        android:layout_marginBottom="67dp"
-        android:adjustViewBounds="true"
+        android:layout_height="139dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginRight="3dp"
+        android:layout_marginBottom="63dp"
         android:background="@android:color/transparent"
-        android:onClick="signUpClicked"
+        android:onClick="alarmClicked"
         android:padding="0dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/signup_button"
+        android:src="@drawable/button_alarm_origin"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/health"
+        app:layout_constraintStart_toEndOf="@+id/chatbot" />
+
+    <ImageButton
+        android:id="@+id/health"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@android:color/transparent"
+        android:onClick="healthClicked"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/button_health_origin"
+        app:layout_constraintBottom_toBottomOf="@+id/alarm"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login" />
+        app:layout_constraintStart_toEndOf="@+id/alarm"
+        app:layout_constraintTop_toTopOf="@+id/alarm" />
+
 
 </android.support.constraint.ConstraintLayout>
-
-
