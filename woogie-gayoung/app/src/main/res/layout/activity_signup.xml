@@ -96,7 +96,7 @@
         android:layout_marginBottom="88dp"
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
-        android:onClick="signUpCompeleteClicked"
+        android:onClick="onClicked"
         android:padding="0dp"
         android:scaleType="fitCenter"
         android:src="@drawable/signup_button"
@@ -105,12 +105,12 @@
         app:layout_constraintHorizontal_bias="0.44"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <!--Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onClicked"
         android:text="Button"
         tools:layout_editor_absoluteX="44dp"
-        tools:layout_editor_absoluteY="502dp" />
+        tools:layout_editor_absoluteY="502dp" /-->
 </android.support.constraint.ConstraintLayout>

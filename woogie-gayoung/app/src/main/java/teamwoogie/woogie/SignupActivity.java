@@ -13,7 +13,12 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.InputStream;
 import java.io.BufferedReader;
+import java.net.HttpURLConnection;
+import android.content.Intent;
+import java.net.MalformedURLException;
+
 
 
 
@@ -21,6 +26,8 @@ public class SignupActivity extends AppCompatActivity {
 
     EditText signup_id, signup_password, signup_name;
     String strNewID, strNewPassword, strNewname;
+
+
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -31,50 +38,20 @@ public class SignupActivity extends AppCompatActivity {
         signup_id = (EditText) findViewById(R.id.signup_id);
         signup_password = (EditText) findViewById(R.id.signup_password);
         signup_name = (EditText) findViewById(R.id.signup_name);
-//
-//        //쿼리문 insert할 user정보 (string 형식)
-//        strNewID = signup_id.getText().toString();
-//        strNewPassword = signup_password.getText().toString();
-//        strNewname = signup_name.getText().toString();
-
 
     }
 
 
-    private String insertToDatabase(String id, String pwd, String name)
-    {
-        Log.e("Tag",strNewID);
-        String link;
-        try {
-        link = "http://ppmj789.dothome.co.kr/php/insert.php?";
-        String data = URLEncoder.encode("UserID", "UTF-8") + "=" + URLEncoder.encode(id, "UTF-8");
-        data += "&" + URLEncoder.encode("Password", "UTF-8") + "=" + URLEncoder.encode(pwd, "UTF-8");
-        data += "&" + URLEncoder.encode("Name", "UTF-8") + "=" + URLEncoder.encode(name, "UTF-8");
-
-        link+=data;
-
-        URL url = new URL(link);
-        URLConnection conn = url.openConnection();
-        } catch (Exception e) {
-            return new String("Exception: " + e.getMessage());
-        }
-        Log.e("Tag",link);
-        return link;
-    }
-
-
-
-    /*
-
+    //회원가입 데이터 넣기
     private void insertToDatabase(String Id, String Pw,String Name) {
         class InsertData extends AsyncTask<String, Void, String> {
             ProgressDialog loading;
 
-            @Override
             protected void onPreExecute() {
                 super.onPreExecute();
                 loading = ProgressDialog.show(SignupActivity.this, "Please Wait", null, true, true);
             }
+
 
             @Override
             protected void onPostExecute(String s) {
@@ -125,25 +102,27 @@ public class SignupActivity extends AppCompatActivity {
             }
         }
         InsertData task = new InsertData();
-        task.execute(Id, Pw);
+        task.execute(Id, Pw,Name);
 
 
         }
-*/
-
 
 
     public void onClicked(View view) {
         strNewID = signup_id.getText().toString();
         strNewPassword = signup_password.getText().toString();
         strNewname = signup_name.getText().toString();
-    }
         //여기 Dynamo insert문 추가
-    public void signUpCompeleteClicked(View view){
 
-        insertToDatabase(strNewID,strNewPassword,strNewname);
+
+        insertToDatabase(strNewID, strNewname, strNewPassword);
+
+        //회원가입 후, 로그인 화면으로(Main)
+        startActivity((new Intent(SignupActivity.this, MainActivity.class)));
         finish();
     }
+
+
 
 
 }

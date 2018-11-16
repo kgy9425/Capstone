@@ -19,7 +19,9 @@
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
-        tools:replace="android:allowBackup">
+        tools:replace="android:allowBackup"
+        android:usesCleartextTraffic="true">
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAO3PnnhQGoMHOaTTwtcNlb8bilkPEILR4" />
