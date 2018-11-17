@@ -41,7 +41,7 @@ public class SignupActivity extends AppCompatActivity {
 
     }
 
-
+    //insert 함수
     //회원가입 데이터 넣기
     private void insertToDatabase(String Id, String Pw,String Name) {
         class InsertData extends AsyncTask<String, Void, String> {
@@ -68,7 +68,7 @@ public class SignupActivity extends AppCompatActivity {
                     String Pw = (String) params[1];
                     String Name = (String) params[2];
 
-                    String link = "http://ppmj789.dothome.co.kr/php/insert.php?";
+                    String link = "http://ppmj789.dothome.co.kr/php/signup.php?";
                     String data = URLEncoder.encode("UserID", "UTF-8") + "=" + URLEncoder.encode(Id, "UTF-8");
                     data += "&" + URLEncoder.encode("Password", "UTF-8") + "=" + URLEncoder.encode(Pw, "UTF-8");
                     data += "&" + URLEncoder.encode("Name", "UTF-8") + "=" + URLEncoder.encode(Name, "UTF-8");
@@ -112,9 +112,9 @@ public class SignupActivity extends AppCompatActivity {
         strNewID = signup_id.getText().toString();
         strNewPassword = signup_password.getText().toString();
         strNewname = signup_name.getText().toString();
-        //여기 Dynamo insert문 추가
 
-
+        
+        //누르면 isert
         insertToDatabase(strNewID, strNewname, strNewPassword);
 
         //회원가입 후, 로그인 화면으로(Main)

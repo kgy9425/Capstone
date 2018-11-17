@@ -14,20 +14,17 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import android.app.Activity;
-import android.app.AlertDialog;
+
 import android.app.ProgressDialog;
 import android.widget.TextView;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.widget.Button;
-import android.widget.ViewFlipper;
+
 import android.widget.Toast;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import java.util.List;
-
+import android.os.Looper;
+import android.util.Log;
 public class MainActivity extends AppCompatActivity {
 
     EditText login_id, password;
@@ -52,22 +49,20 @@ public class MainActivity extends AppCompatActivity {
         login_id = (EditText) findViewById(R.id.login_id);
         password = (EditText) findViewById(R.id.password);
 
-        //쿼리문에 쓸 로그인아이디, 패스워드 (String 형식)
-        strLogin = login_id.getText().toString();
-        strPassword = password.getText().toString();
 
 
     }
 
 
-    /////////
-    //로그인클릭시 // 여기서 디비 비교해서 넘어갈수잇는지아닌지
+
     public void loginClicked(View v) {
         dialog = ProgressDialog.show(MainActivity.this, "",
                 "Validating user...", true);
         new Thread(new Runnable() {
             public void run() {
+                Looper.prepare();
                 login();
+                Looper.loop();
             }
         }).start();
 
@@ -76,10 +71,14 @@ public class MainActivity extends AppCompatActivity {
     void login() {
         try {
             httpclient = new DefaultHttpClient();
+            //쿼리문에서 이부분만 바꿔주면 될듯
+            // 주소 바꾸고
+            // "username" - php 변수명 , login_id.getText().toString() - 변수값
             httppost = new HttpPost("http://ppmj789.dothome.co.kr/php/login.php");
             nameValuePairs = new ArrayList<NameValuePair>(2);
-            nameValuePairs.add(new BasicNameValuePair("UserID", login_id.getText().toString()));
-            nameValuePairs.add(new BasicNameValuePair("Password", password.getText().toString()));
+            nameValuePairs.add(new BasicNameValuePair("username", login_id.getText().toString()));
+            nameValuePairs.add(new BasicNameValuePair("password", password.getText().toString()));
+            //
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             response = httpclient.execute(httppost);
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
@@ -88,24 +87,26 @@ public class MainActivity extends AppCompatActivity {
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    tv.setText("Response from PHP : " + response);
                     dialog.dismiss();
                 }
             });
 
+
+            //로그인 성공했을 때 echo로 값
             if (response.equalsIgnoreCase("User Found")) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(MainActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
                     }
                 });
 
-                //로그인 성공
+                //성공하고 다른 activity로 넘어감
                 startActivity((new Intent(getApplicationContext(),AfterLoginActivity.class)));
                 finish();
+
             } else {
-                Toast.makeText(MainActivity.this, "Login Fail", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
             }
         }
         catch(Exception e)
