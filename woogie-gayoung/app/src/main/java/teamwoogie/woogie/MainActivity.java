@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     List<NameValuePair> nameValuePairs;
     TextView tv;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -50,12 +51,16 @@ public class MainActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
 
 
+    }
 
+    //임시 예방법 보여주는 버튼
+    public void precauiontClicked(View v){
+        startActivity((new Intent(getApplicationContext(),ShowMonthDisease.class)));
     }
 
 
-
     public void loginClicked(View v) {
+
         dialog = ProgressDialog.show(MainActivity.this, "",
                 "Validating user...", true);
         new Thread(new Runnable() {
@@ -71,14 +76,12 @@ public class MainActivity extends AppCompatActivity {
     void login() {
         try {
             httpclient = new DefaultHttpClient();
-            //쿼리문에서 이부분만 바꿔주면 될듯
-            // 주소 바꾸고
-            // "username" - php 변수명 , login_id.getText().toString() - 변수값
             httppost = new HttpPost("http://ppmj789.dothome.co.kr/php/login.php");
             nameValuePairs = new ArrayList<NameValuePair>(2);
             nameValuePairs.add(new BasicNameValuePair("username", login_id.getText().toString()));
             nameValuePairs.add(new BasicNameValuePair("password", password.getText().toString()));
-            //
+            strLogin=login_id.getText().toString();
+            strPassword=password.getText().toString();
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
             response = httpclient.execute(httppost);
             ResponseHandler<String> responseHandler = new BasicResponseHandler();
@@ -120,6 +123,11 @@ public class MainActivity extends AppCompatActivity {
     public void signUpClicked(View v) {
         Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
         startActivity(intent);
+    }
+
+
+    public String getUserID() {
+        return strLogin;
     }
 
 }

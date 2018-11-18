@@ -39,6 +39,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ShowMonthDisease" />
         <activity android:name=".ChatbotActivity" />
         <activity android:name=".ShowMapActivity" />
         <activity android:name=".AlarmActivity" />
