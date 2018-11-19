@@ -40,6 +40,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ShowMonthDisease" />
+        <activity android:name=".ShowDiseaseRecord" />
         <activity android:name=".ChatbotActivity" />
         <activity android:name=".ShowMapActivity" />
         <activity android:name=".AlarmActivity" />

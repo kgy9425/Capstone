@@ -54,9 +54,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //임시 예방법 보여주는 버튼
-    public void precauiontClicked(View v){
+    public void monthDiseaseClicked(View v){
         startActivity((new Intent(getApplicationContext(),ShowMonthDisease.class)));
     }
+
+    public void diseaseRecordClicked(View v){
+        startActivity((new Intent(getApplicationContext(),ShowDiseaseRecord.class)));
+    }
+
 
 
     public void loginClicked(View v) {
