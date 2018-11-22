@@ -78,25 +78,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void readNews() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                Users newsItem = dynamoDBMapper.load(Users.class, id, "Article1");
-
-                // Item read
-                // Log.d("News Item:", newsItem.toString());
-            }
-        }).start();
-    }
-
-    /////////
-    //로그인클릭시 // 여기서 디비 비교해서 넘어갈수잇는지아닌지
-    public void loginClicked(View v) {
-        Intent intent = new Intent(getApplicationContext(), AfterLoginActivity.class);
-        startActivity(intent);
-=======
     void login() {
         try {
             httpclient = new DefaultHttpClient();
@@ -155,4 +136,3 @@ public class MainActivity extends AppCompatActivity {
     }
 
 }
-
