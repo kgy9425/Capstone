@@ -65,6 +65,9 @@ public class HealthActivity extends AppCompatActivity {
     private String imageFilePath;
     private Uri photoUri;
     private String timeStamp;
+
+    private Date today;
+
     private String OCRresult;
 
     Bitmap recordPicture = null;
@@ -128,7 +131,15 @@ public class HealthActivity extends AppCompatActivity {
 
     //// 이미지가 저장 될 파일을 만드는 함수////
     private File createImageFile() throws IOException {
-        timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+       // timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        java.util.Date currentDate = new java.util.Date();
+        java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
+
+        timeStamp = format.format(currentDate);
+
+
+
+
         String imageFIleName = "TEST_" + timeStamp + "_";
 
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
@@ -202,7 +213,7 @@ public class HealthActivity extends AppCompatActivity {
         TextView OCRTextView = (TextView) findViewById(R.id.OCRTextView);
         OCRTextView.setText(OCRresult);
 
-        insertToDatabase("SH", OCRresult, timeStamp);
+        insertToDatabase("GY", OCRresult, timeStamp);
 
     }
 
