@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <!-- 버튼 영역 -->
+
+    <Button
+        android:id="@+id/button_call"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="KS 용어 조회" />
+
+    <!-- 웹문서 소스 출력 영역 -->
+
+    <EditText
+        android:id="@+id/webpage_src"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#c9c9c9"
+        android:gravity="top"
+        android:hint="조회 결과 출력 영역" />
+
+</LinearLayout>
