@@ -28,7 +28,6 @@ public class SignupActivity extends AppCompatActivity {
     String strNewID, strNewPassword, strNewname;
 
 
-
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);

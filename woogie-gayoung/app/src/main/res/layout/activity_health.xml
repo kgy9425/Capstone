@@ -9,69 +9,36 @@
     tools:layout_editor_absoluteY="25dp">
 
 
-    <android.support.constraint.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
-
-    <Button
-        android:id="@+id/add"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="62dp"
-        android:text="ADD"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/OCRTextView"
-        app:layout_constraintStart_toEndOf="@+id/OCRTextView"
-        app:layout_constraintTop_toBottomOf="@+id/OCRTextView" />
-
-    <TextView
-        android:id="@+id/OCRTextView"
-        android:layout_width="255dp"
-        android:layout_height="46dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_marginEnd="84dp"
-        android:layout_marginRight="84dp"
-        android:layout_marginBottom="24dp"
-        android:background="#fff"
-        android:text="여기에 결과 출력됩니다."
-        android:textColor="#169cdf"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/add"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="0dp"
-        android:layout_height="159dp"
-        android:layout_marginStart="49dp"
-        android:layout_marginLeft="49dp"
-        android:layout_marginTop="58dp"
-        android:layout_marginEnd="49dp"
-        android:layout_marginRight="49dp"
-        android:layout_marginBottom="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/Run"
+        android:layout_height="0dp"
+        android:layout_marginTop="86dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="204dp"
+        android:src="@drawable/doctor"
+        app:layout_constraintBottom_toTopOf="@+id/runOCR"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/Run"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="181dp"
-        android:onClick="processImage"
-        android:text="RUN OCR"
+    <ImageButton
+        android:id="@+id/runOCR"
+        android:layout_width="94dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="7dp"
+        android:layout_marginRight="7dp"
+        android:layout_marginBottom="16dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:onClick="OCRClicked"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/plus"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.945"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
 
 </android.support.constraint.ConstraintLayout>
