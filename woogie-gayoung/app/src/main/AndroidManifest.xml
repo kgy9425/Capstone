@@ -19,7 +19,12 @@
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
-        tools:replace="android:allowBackup">
+        tools:replace="android:allowBackup"
+        android:usesCleartextTraffic="true"
+        >
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAO3PnnhQGoMHOaTTwtcNlb8bilkPEILR4" />
@@ -34,6 +39,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ShowMonthDisease" />
+        <activity android:name=".ShowDiseaseRecord" />
         <activity android:name=".ChatbotActivity" />
         <activity android:name=".ShowMapActivity" />
         <activity android:name=".AlarmActivity" />

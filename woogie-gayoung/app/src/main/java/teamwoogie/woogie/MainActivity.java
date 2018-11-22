@@ -4,25 +4,39 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+
 import android.widget.EditText;
+import java.util.ArrayList;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 
-import com.amazonaws.auth.AWSCredentialsProvider;
-import com.amazonaws.mobile.client.AWSMobileClient;
-import com.amazonaws.mobile.config.AWSConfiguration;
+import android.app.ProgressDialog;
+import android.widget.TextView;
 
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-
-
-//각 activity마다 저장
-import com.amazonaws.mobileconnectors.dynamodbv2.dynamodbmapper.DynamoDBMapper;
-
+import android.widget.Toast;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import java.util.List;
+import android.os.Looper;
+import android.util.Log;
 public class MainActivity extends AppCompatActivity {
 
-    DynamoDBMapper dynamoDBMapper;
     EditText login_id, password;
     String strLogin, strPassword;
+    ProgressDialog dialog = null;
+    HttpPost httppost;
+    StringBuffer buffer;
+    HttpResponse response;
+    HttpClient httpclient;
+    List<NameValuePair> nameValuePairs;
+    TextView tv;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,26 +50,31 @@ public class MainActivity extends AppCompatActivity {
         login_id = (EditText) findViewById(R.id.login_id);
         password = (EditText) findViewById(R.id.password);
 
-        //쿼리문에 쓸 로그인아이디, 패스워드 (String 형식)
-        strLogin = login_id.getText().toString();
-        strPassword = password.getText().toString();
+
+    }
+
+    //임시 예방법 보여주는 버튼
+    public void monthDiseaseClicked(View v){
+        startActivity((new Intent(getApplicationContext(),ShowMonthDisease.class)));
+    }
+
+    public void diseaseRecordClicked(View v){
+        startActivity((new Intent(getApplicationContext(),ShowDiseaseRecord.class)));
+    }
 
 
-        /////// 가영이 DB부분
-        AWSMobileClient.getInstance().initialize(this).execute();
 
-        AWSCredentialsProvider credentialsProvider = AWSMobileClient.getInstance().getCredentialsProvider();
-        AWSConfiguration configuration = AWSMobileClient.getInstance().getConfiguration();
+    public void loginClicked(View v) {
 
-
-        // Add code to instantiate a AmazonDynamoDBClient
-        AmazonDynamoDBClient dynamoDBClient = new AmazonDynamoDBClient(credentialsProvider);
-
-        this.dynamoDBMapper = DynamoDBMapper.builder()
-                .dynamoDBClient(dynamoDBClient)
-                .awsConfiguration(configuration)
-                .build();
-
+        dialog = ProgressDialog.show(MainActivity.this, "",
+                "Validating user...", true);
+        new Thread(new Runnable() {
+            public void run() {
+                Looper.prepare();
+                login();
+                Looper.loop();
+            }
+        }).start();
 
     }
 
@@ -77,11 +96,62 @@ public class MainActivity extends AppCompatActivity {
     public void loginClicked(View v) {
         Intent intent = new Intent(getApplicationContext(), AfterLoginActivity.class);
         startActivity(intent);
+=======
+    void login() {
+        try {
+            httpclient = new DefaultHttpClient();
+            httppost = new HttpPost("http://ppmj789.dothome.co.kr/php/login.php");
+            nameValuePairs = new ArrayList<NameValuePair>(2);
+            nameValuePairs.add(new BasicNameValuePair("username", login_id.getText().toString()));
+            nameValuePairs.add(new BasicNameValuePair("password", password.getText().toString()));
+            strLogin=login_id.getText().toString();
+            strPassword=password.getText().toString();
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            response = httpclient.execute(httppost);
+            ResponseHandler<String> responseHandler = new BasicResponseHandler();
+            final String response = httpclient.execute(httppost, responseHandler);
+            System.out.println("Response : " + response);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    dialog.dismiss();
+                }
+            });
+
+
+            //로그인 성공했을 때 echo로 값
+            if (response.equalsIgnoreCase("User Found")) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                //성공하고 다른 activity로 넘어감
+                startActivity((new Intent(getApplicationContext(),AfterLoginActivity.class)));
+                finish();
+
+            } else {
+                Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
+            }
+        }
+        catch(Exception e)
+        {
+            dialog.dismiss();
+            System.out.println("Exception : " + e.getMessage());
+        }
     }
+
     //회원가입
     public void signUpClicked(View v) {
         Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
         startActivity(intent);
+    }
+
+
+    public String getUserID() {
+        return strLogin;
     }
 
 }
