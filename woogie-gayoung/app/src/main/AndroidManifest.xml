@@ -6,10 +6,11 @@
     <!-- chatbot 추가 인터넷 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    //위치 정보 접근을 위한 퍼미션 추가
+    <!--위치 정보 접근을 위한 퍼미션 추가-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
+   <!-- <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+   // <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+   // <uses-permission android:name="android.permission.CAMERA" />  -->
     <uses-feature android:name = "android.hardware.camera"/>
 
     <application
@@ -19,31 +20,43 @@
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
-        tools:replace="android:allowBackup">
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAO3PnnhQGoMHOaTTwtcNlb8bilkPEILR4" />
+        tools:replace="android:allowBackup" >
 
-        <activity
-            android:name=".SplashActivity"
-            android:theme="@android:style/Theme.NoTitleBar" />
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".ChatbotActivity" />
-        <activity android:name=".ShowMapActivity" />
-        <activity android:name=".AlarmActivity" />
-        <activity android:name=".HealthActivity" />
-        <activity android:name=".AddAlarmActivity" />
-        <activity android:name=".ShowHospitalMapActivity" />
-        <activity android:name=".AlarmResultActivity" />
-        <activity android:name=".ShowHospitalInfoActivity"/>
-        <activity android:name=".AfterLoginActivity"/>
-        <activity android:name=".SignupActivity"/>
+            <provider
+                android:authorities="teamwoogie.woogie"
+                android:name="android.support.v4.content.FileProvider"
+                android:exported="false"
+                android:grantUriPermissions="true">
+                    <meta-data
+                        android:name="android.support.FILE_PROVIDER_PATHS"
+                        android:resource="@xml/file_paths" />
+
+            </provider>
+
+                <meta-data
+                    android:name="com.google.android.geo.API_KEY"
+                    android:value="AIzaSyAO3PnnhQGoMHOaTTwtcNlb8bilkPEILR4" />
+            <activity
+                android:name=".SplashActivity"
+                android:theme="@android:style/Theme.NoTitleBar" />
+            <activity android:name=".MainActivity">
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+            </activity>
+            <activity android:name=".ChatbotActivity" />
+            <activity android:name=".ShowMapActivity" />
+            <activity android:name=".AlarmActivity" />
+            <activity android:name=".HealthActivity" />
+            <activity android:name=".AddAlarmActivity" />
+            <activity android:name=".ShowHospitalMapActivity" />
+            <activity android:name=".AlarmResultActivity" />
+            <activity android:name=".ShowHospitalInfoActivity"/>
+            <activity android:name=".AfterLoginActivity"/>
+            <activity android:name=".SignupActivity"/>
 
     </application>
 
