@@ -74,9 +74,9 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="37dp"
-
         android:onClick="monthDiseaseClicked"
-        android:text="1월 예방법" />
+        android:text="1월 예방법"
+        tools:layout_editor_absoluteY="0dp" />
 
     <Button
         android:layout_margin="2dp"

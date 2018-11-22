@@ -30,28 +30,26 @@ public class ShowDiseaseRecord extends AppCompatActivity {
 
 
 
-    private TextView mTextViewResult;
-    private ArrayList<MonthDiseaseData> mArrayList;
-    private MonthAdapter mAdapter;
-    private RecyclerView mRecyclerView;
-    private String mJsonString;
+    private TextView dmTextViewResult;
+    private ArrayList<MonthDiseaseData> dmArrayList;
+    private MonthAdapter dmAdapter;
+    private RecyclerView dmRecyclerView;
+    private String dmJsonString;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.showdiseaserecord);
 
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.listView_main_list);
-        mTextViewResult=(TextView)findViewById(R.id.textView_main_result);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        dmRecyclerView = (RecyclerView) findViewById(R.id.listView_main_list);
+        dmTextViewResult=(TextView)findViewById(R.id.textView_main_result);
+        dmRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
+        dmArrayList = new ArrayList<>();
 
-
-        mArrayList = new ArrayList<>();
-
-        mAdapter = new MonthAdapter(this, mArrayList);
-        mRecyclerView.setAdapter(mAdapter);
+        dmAdapter = new MonthAdapter(this, dmArrayList);
+        dmRecyclerView.setAdapter(dmAdapter);
 
         Button button_all = (Button) findViewById(R.id.button_main_all);
         button_all.setOnClickListener(new View.OnClickListener() {
@@ -59,19 +57,19 @@ public class ShowDiseaseRecord extends AppCompatActivity {
 
             public void onClick(View v) {
 
-                mArrayList.clear();
-                mAdapter.notifyDataSetChanged();
+                dmArrayList.clear();
+                dmAdapter.notifyDataSetChanged();
 
                 GetData task = new GetData();
                 task.execute( "http://ppmj789.dothome.co.kr/php/DiseaseRecord.php", "");
             }
         });
 
+
+
     }
 
-
-
-    private class GetData extends AsyncTask<String, Void, String>{
+    public class GetData extends AsyncTask<String, Void, String>{
 
         ProgressDialog progressDialog;
         String errorString = null;
@@ -90,24 +88,19 @@ public class ShowDiseaseRecord extends AppCompatActivity {
             super.onPostExecute(result);
 
             progressDialog.dismiss();
-
-
-            mTextViewResult.setText(result);
+            dmTextViewResult.setText(result);
             Log.d("TAG", "response - " + result);
-
-
 
             if (result == null){
 
-                mTextViewResult.setText(errorString);
+                dmTextViewResult.setText(errorString);
             }
             else {
 
-                mJsonString = result;
+                dmJsonString = result;
                 showResult();
             }
         }
-
 
         @Override
         protected String doInBackground(String... params) {
@@ -115,12 +108,10 @@ public class ShowDiseaseRecord extends AppCompatActivity {
             String serverURL = params[0];
             String postParameters = "country=" + params[1];
 
-
             try {
 
                 URL url = new URL(serverURL);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-
 
                 httpURLConnection.setReadTimeout(5000);
                 httpURLConnection.setConnectTimeout(5000);
@@ -128,12 +119,10 @@ public class ShowDiseaseRecord extends AppCompatActivity {
                 httpURLConnection.setDoInput(true);
                 httpURLConnection.connect();
 
-
                 OutputStream outputStream = httpURLConnection.getOutputStream();
                 outputStream.write(postParameters.getBytes("UTF-8"));
                 outputStream.flush();
                 outputStream.close();
-
 
                 int responseStatusCode = httpURLConnection.getResponseCode();
                 Log.d("TAG", "response code - " + responseStatusCode);
@@ -145,7 +134,6 @@ public class ShowDiseaseRecord extends AppCompatActivity {
                 else{
                     inputStream = httpURLConnection.getErrorStream();
                 }
-
 
                 InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
                 BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
@@ -161,7 +149,6 @@ public class ShowDiseaseRecord extends AppCompatActivity {
 
                 return sb.toString().trim();
 
-
             } catch (Exception e) {
 
                 Log.d("TAG", "GetData : Error ", e);
@@ -173,20 +160,17 @@ public class ShowDiseaseRecord extends AppCompatActivity {
         }
     }
 
-
     private void showResult(){
 
         String TAG_JSON="DiseaseRecord";
         String TAG_DISASENAME = "disease_name";
         String TAG_DATE ="date";
 
-
         try {
-            JSONObject jsonObject = new JSONObject(mJsonString);
+            JSONObject jsonObject = new JSONObject(dmJsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
 
             for(int i=0;i<jsonArray.length();i++){
-
                 JSONObject item = jsonArray.getJSONObject(i);
 
                 String disease_name = item.getString(TAG_DISASENAME);
@@ -197,8 +181,8 @@ public class ShowDiseaseRecord extends AppCompatActivity {
                 monthdisease.setDisease_name(disease_name);
                 monthdisease.setDisease_precaution(precaution);
 
-                mArrayList.add(monthdisease);
-                mAdapter.notifyDataSetChanged();
+                dmArrayList.add(monthdisease);
+                dmAdapter.notifyDataSetChanged();
             }
 
 

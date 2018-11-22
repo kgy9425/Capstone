@@ -28,7 +28,7 @@ import android.util.Log;
 public class MainActivity extends AppCompatActivity {
 
     EditText login_id, password;
-    String strLogin, strPassword;
+    String strLogin, strPassword, strName;
     ProgressDialog dialog = null;
     HttpPost httppost;
     StringBuffer buffer;
@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         startActivity(new Intent(this,SplashActivity.class));
-
 
         login_id = (EditText) findViewById(R.id.login_id);
         password = (EditText) findViewById(R.id.password);
@@ -124,6 +123,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    ////////////////////////////////////////////////가영아! 여기에 strName에다가 로그인한 사용자 이름 좀 넣어주렴 화이팅 ^^
+    void getname(){
+
+    }
+    ////////////////////////////////////////////////////////
     //회원가입
     public void signUpClicked(View v) {
         Intent intent = new Intent(getApplicationContext(), SignupActivity.class);

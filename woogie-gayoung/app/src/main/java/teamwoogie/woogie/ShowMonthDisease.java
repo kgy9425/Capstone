@@ -46,13 +46,9 @@ public class ShowMonthDisease extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.showmonthdisease);
 
-
         mRecyclerView = (RecyclerView) findViewById(R.id.listView_main_list);
         mTextViewResult=(TextView)findViewById(R.id.textView_main_result);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
-
 
         mArrayList = new ArrayList<>();
 
@@ -68,7 +64,7 @@ public class ShowMonthDisease extends AppCompatActivity {
                 mArrayList.clear();
                 mAdapter.notifyDataSetChanged();
 
-                GetData task = new GetData();
+                GetMonthData task = new GetMonthData();
                 task.execute( "http://ppmj789.dothome.co.kr/php/monthdisease.php", "");
             }
         });
@@ -77,7 +73,7 @@ public class ShowMonthDisease extends AppCompatActivity {
 
 
 
-    private class GetData extends AsyncTask<String, Void, String>{
+    private class GetMonthData extends AsyncTask<String, Void, String>{
 
         ProgressDialog progressDialog;
         String errorString = null;
@@ -97,11 +93,8 @@ public class ShowMonthDisease extends AppCompatActivity {
 
             progressDialog.dismiss();
 
-
             mTextViewResult.setText(result);
             Log.d("TAG", "response - " + result);
-
-
 
             if (result == null){
 
