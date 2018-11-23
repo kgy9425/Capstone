@@ -109,7 +109,10 @@ public class MainActivity extends AppCompatActivity {
                 });
 
                 //성공하고 다른 activity로 넘어감
-                startActivity((new Intent(getApplicationContext(),AfterLoginActivity.class)));
+                Intent intent = new Intent(getApplicationContext(), AfterLoginActivity.class);
+                intent.putExtra("userID",strLogin);
+                startActivity(intent);
+
                 finish();
 
             } else {
@@ -124,9 +127,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     ////////////////////////////////////////////////가영아! 여기에 strName에다가 로그인한 사용자 이름 좀 넣어주렴 화이팅 ^^
-    void getname(){
 
+    public void setname(String name){
+            strName=name;
     }
+
+
+
     ////////////////////////////////////////////////////////
     //회원가입
     public void signUpClicked(View v) {
