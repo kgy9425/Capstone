@@ -13,7 +13,7 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_margin="60dp"
-        android:text="이 버튼 눌러야 나옴" />
+        android:text="버튼을 누르세요" />
 
     <android.support.v7.widget.RecyclerView
 

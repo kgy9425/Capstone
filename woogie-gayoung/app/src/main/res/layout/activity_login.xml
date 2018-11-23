@@ -17,6 +17,7 @@
         android:layout_marginLeft="43dp"
         android:layout_marginTop="95dp"
         android:layout_marginBottom="177dp"
+        android:text="박수현님! 환영합니다"
         android:textColor="#000000"
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/chatbot"

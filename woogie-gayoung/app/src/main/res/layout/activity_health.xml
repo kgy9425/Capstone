@@ -15,13 +15,14 @@
         android:layout_height="0dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="8dp"
         android:src="@drawable/doctor"
         app:layout_constraintBottom_toTopOf="@+id/monthDisease"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,13 +48,13 @@
         android:layout_height="49dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="8dp"
-        android:text="이번달 조심 질병확인"
         android:onClick="monthDiseaseClicked"
+        android:text="이번달 조심 질병확인"
         app:layout_constraintBottom_toTopOf="@+id/listView_my"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-         />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
         android:id="@+id/myRecord"
@@ -71,10 +72,10 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listView_main_list"
-        android:layout_width="150dp"
-        android:layout_height="90dp"
-        android:layout_marginEnd="80dp"
-        android:layout_marginRight="80dp"
+        android:layout_width="225dp"
+        android:layout_height="149dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"

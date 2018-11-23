@@ -71,14 +71,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login" />
 
-    <Button
+    <!--Button
         android:layout_width="match_parent"
         android:layout_height="37dp"
         android:onClick="monthDiseaseClicked"
         android:text="1월 예방법"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteY="0dp" /-->
 
-    <Button
+    <!--Button
         android:layout_margin="2dp"
         android:onClick="diseaseRecordClicked"
         android:layout_width="match_parent"
@@ -86,6 +86,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_height="40dp"
-        android:text="개인 질병 기록" />
+        android:text="개인 질병 기록" /-->
 </android.support.constraint.ConstraintLayout>
-

@@ -72,16 +72,16 @@ public class ocrActivity extends AppCompatActivity {
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ocr);
+        public void onCreate(Bundle savedInstanceState) {
 
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_ocr);
         // iv_UserPhoto = (ImageView) this.findViewById(R.id.imageView);
         b = (Button) this.findViewById(R.id.add);
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //doTakeAlbumAction();
+
                 sendTakePhotoIntent();
             }
         });
@@ -210,7 +210,7 @@ public class ocrActivity extends AppCompatActivity {
         TextView OCRTextView = (TextView) findViewById(R.id.OCRTextView);
         OCRTextView.setText(OCRresult);
 
-        insertToDatabase("GY", OCRresult, timeStamp);
+        insertToDatabase("tntnrr", OCRresult, timeStamp);
 
     }
 
