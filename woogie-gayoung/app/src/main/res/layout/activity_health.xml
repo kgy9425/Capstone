@@ -15,13 +15,21 @@
         android:layout_height="0dp"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
+<<<<<<< HEAD
         android:layout_marginTop="72dp"
+=======
+        android:layout_marginTop="80dp"
+>>>>>>> c9bfd66d03fd911e7f29ce1e129db432f75d8dd1
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
         android:layout_marginBottom="8dp"
         android:src="@drawable/doctor"
         app:layout_constraintBottom_toTopOf="@+id/monthDisease"
         app:layout_constraintEnd_toEndOf="parent"
+<<<<<<< HEAD
+=======
+        app:layout_constraintHorizontal_bias="1.0"
+>>>>>>> c9bfd66d03fd911e7f29ce1e129db432f75d8dd1
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,6 +55,7 @@
         android:layout_height="49dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+<<<<<<< HEAD
         android:layout_marginBottom="8dp"
         android:text="이번달 조심 질병확인"
         android:onClick="monthDiseaseClicked"
@@ -75,6 +84,67 @@
         android:layout_height="90dp"
         android:layout_marginEnd="80dp"
         android:layout_marginRight="80dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.358"
+        tools:ignore="MissingConstraints"></android.support.v7.widget.RecyclerView>
+
+    <TextView
+        android:id="@+id/textView_main_result"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginBottom="47dp"
+        app:layout_constraintBottom_toBottomOf="@+id/listView_my"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/listView_my" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listView_my"
+        android:layout_width="346dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="30dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/runOCR"
+        app:layout_constraintEnd_toStartOf="@+id/textView_main_result"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/monthDisease"
+        tools:ignore="MissingConstraints"></android.support.v7.widget.RecyclerView>
+
+=======
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="monthDiseaseClicked"
+        android:text="이번달 조심 질병확인"
+        app:layout_constraintBottom_toTopOf="@+id/listView_my"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+>>>>>>> c9bfd66d03fd911e7f29ce1e129db432f75d8dd1
+
+    <Button
+        android:id="@+id/myRecord"
+        android:layout_width="166dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="내 질병기록 확인하기"
+        android:onClick="myDiseaseClicked"
+        app:layout_constraintBottom_toTopOf="@+id/listView_my"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/monthDisease" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/listView_main_list"
+        android:layout_width="225dp"
+        android:layout_height="149dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
