@@ -7,26 +7,32 @@ import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.googlecode.tesseract.android.TessBaseAPI;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -37,293 +43,342 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+
+import teamwoogie.woogie.model.MonthDiseaseData;
+
 
 public class HealthActivity extends AppCompatActivity {
 
-
-    private static final int REQUEST_IMAGE_CAPTURE = 1;
-
-
-    // private Uri mImageCaptureUri;
-    // private ImageView iv_UserPhoto;
-    private Button b;
-    private int id_view;
-    // private String absoultePath;
-
-    ////Bitmap recordPicture = null;
-    private TessBaseAPI mTess; //Tess API reference
-    String datapath = "" ; //언어데이터가 있는 경로
-
-
-    /////// new SooHyun ////
-    private String imageFilePath;
-    private Uri photoUri;
-    private String timeStamp;
-
-    private Date today;
-
-    private String OCRresult;
-
-    Bitmap recordPicture = null;
-
-
-
+    private EditText mEditTextName;
+    private EditText mEditTextCountry;
+    //월별질병선언
+    private TextView mTextViewResult;
+    private ArrayList<MonthDiseaseData> mArrayList;
+    private MonthAdapter mAdapter;
+    private RecyclerView mRecyclerView;
+    private EditText mEditTextSearchKeyword;
+    private String mJsonString;
+    //월별질병선언
+    //내질병선언부분
+    private TextView dmTextViewResult;
+    private ArrayList<MonthDiseaseData> dmArrayList;
+    private MonthAdapter dmAdapter;
+    private RecyclerView dmRecyclerView;
+    private String dmJsonString;
+    //내질병선언부분
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health);
+        //월별
+        mRecyclerView = (RecyclerView) findViewById(R.id.listView_main_list);
+        mRecyclerView.setBackgroundColor(Color.BLACK);
+        mTextViewResult=(TextView)findViewById(R.id.textView_main_result);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mArrayList = new ArrayList<>();
+        mAdapter = new MonthAdapter(this, mArrayList);
+        mRecyclerView.setAdapter(mAdapter);
+        //월별
 
-        // iv_UserPhoto = (ImageView) this.findViewById(R.id.imageView);
-        b = (Button) this.findViewById(R.id.add);
-        b.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                //doTakeAlbumAction();
-                sendTakePhotoIntent();
-            }
-        });
-
-
-        datapath = getFilesDir() + "/tesseract/";
-        checkFile(new File(datapath + "tessdata/"));
-
-        //Tesseract API
-        String lang_eng = "eng";
-        //String lang_kor = "kor";
-
-        mTess = new TessBaseAPI();
-        mTess.init(datapath, lang_eng);
-        //  mTess.init(datapath, lang_kor);
-
+        //내질병
+        dmRecyclerView = (RecyclerView) findViewById(R.id.listView_my);
+        dmRecyclerView.setBackgroundColor(Color.BLACK);
+        dmTextViewResult=(TextView)findViewById(R.id.textView_main_result);
+        dmRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        dmArrayList = new ArrayList<>();
+        dmAdapter = new MonthAdapter(this, dmArrayList);
+        dmRecyclerView.setAdapter(dmAdapter);
+        //내질병
 
     }
 
 
-    //카메라로 사진찍는 메소드
-    private void sendTakePhotoIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-            }
+    /////////월별질병확인부분 start
+    public void monthDiseaseClicked(View v){
+        mArrayList.clear();
+        mAdapter.notifyDataSetChanged();
+        HealthActivity.GetMonthData task = new HealthActivity.GetMonthData();
+        task.execute( "http://ppmj789.dothome.co.kr/php/monthdisease.php", "");
+    }
 
-            if (photoFile != null) {
-                photoUri = FileProvider.getUriForFile(this, getPackageName(), photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+    private class GetMonthData extends AsyncTask<String, Void, String> {
+
+        ProgressDialog progressDialog;
+        String errorString = null;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog = ProgressDialog.show(HealthActivity.this,
+                    "Please Wait", null, true, true);
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            progressDialog.dismiss();
+
+
+            mTextViewResult.setText(result);
+            Log.d("TAG", "response - " + result);
+
+            if (result == null){
+
+                mTextViewResult.setText(errorString);
+            }
+            else {
+                mJsonString = result;
+                showMonthResult();
             }
         }
-        // putExtra()를 이용해서 이미지가 저장될 uri를 같이 넘김
 
 
-    }
-///
-    ///// new SooHyun /////
+        @Override
+        protected String doInBackground(String... params) {
 
-    //// 이미지가 저장 될 파일을 만드는 함수////
-    private File createImageFile() throws IOException {
-       // timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
-        java.util.Date currentDate = new java.util.Date();
-        java.text.SimpleDateFormat format = new java.text.SimpleDateFormat("yyyy-MM-dd");
+            String serverURL = params[0];
+            String postParameters = "country=" + params[1];
 
-        timeStamp = format.format(currentDate);
-
-
-
-
-        String imageFIleName = "TEST_" + timeStamp + "_";
-
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFIleName,
-                ".jpg",
-                storageDir
-        );
-
-        imageFilePath = image.getAbsolutePath();
-        return image;
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            //Bundle extras = data.getExtras();
-            Bitmap imageBitmap = BitmapFactory.decodeFile(imageFilePath);
-            ExifInterface exif = null;
 
             try {
-                exif = new ExifInterface(imageFilePath);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
 
-            int exifOrientation;
-            int exifDegree;
-
-            if (exif != null) {
-                exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-                exifDegree = exifOrientationToDegrees(exifOrientation);
-            } else {
-                exifDegree = 0;
-            }
-
-            ((ImageView)findViewById(R.id.imageView)).setImageBitmap(rotate(imageBitmap, exifDegree));
-        }
-    }
-
-    private int exifOrientationToDegrees(int exifOrientation)
-    {
-        if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
-            return 90;
-        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
-            return 180;
-        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
-            return 270;
-        }
-        return 0;
-    }
-    private Bitmap rotate(Bitmap bitmap, float degree) {
-        recordPicture = null;
-
-        Matrix matrix = new Matrix();
-        matrix.postRotate(degree);
-        recordPicture = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-
-        return recordPicture;
-    }
-
-    ///////////////////////////////////////////////////////
-    public void processImage(View view) {
-
-        mTess.setImage(recordPicture); //여기 고쳐야함
-        OCRresult = mTess.getUTF8Text();
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
 
-        TextView OCRTextView = (TextView) findViewById(R.id.OCRTextView);
-        OCRTextView.setText(OCRresult);
-
-        insertToDatabase("GY", OCRresult, timeStamp);
-
-    }
-
-    private void copyFiles() {
-        try{
-            String filepath = datapath + "/tessdata/eng.traineddata";
-            AssetManager assetManager = getAssets();
-            InputStream instream = assetManager.open("tessdata/eng.traineddata");
-            OutputStream outstream = new FileOutputStream(filepath);
-            byte[] buffer = new byte[1024];
-            int read;
-            while ((read = instream.read(buffer)) != -1) {
-                outstream.write(buffer, 0, read);
-            }
-            outstream.flush();
-            outstream.close();
-            instream.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    //check file on the device
-    private void checkFile(File dir) {
-        //디렉토리가 없으면 디렉토리를 만들고 그후에 파일을 카피
-        if(!dir.exists()&& dir.mkdirs()) {
-            copyFiles();
-        }
-        //디렉토리가 있지만 파일이 없으면 파일카피 진행
-        if(dir.exists()) {
-            String datafilepath = datapath+ "/tessdata/eng.traineddata";
-            File datafile = new File(datafilepath);
-            if(!datafile.exists()) {
-                copyFiles();
-            }
-        }
-    }
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.connect();
 
 
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
 
 
-    private void insertToDatabase(String UserID, String DiseaseCode,String Date) {
-        class InsertData extends AsyncTask<String, String, String> {
-            ProgressDialog loading;
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d("TAG", "response code - " + responseStatusCode);
 
-            protected void onPreExecute() {
-                super.onPreExecute();
-                ///
-                loading = ProgressDialog.show(HealthActivity.this, "Please Wait", null, true, true);
-            }
-
-
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                loading.dismiss();
-                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            protected String doInBackground(String... params) {
-
-                try {
-                    String UserID = (String) params[0];
-                    String DiseaseCode = (String) params[1];
-                    String Date = (String) params[2];
-
-                    String link = "http://ppmj789.dothome.co.kr/php/insertDiseaseRecord.php?";
-                    String data = URLEncoder.encode("UserID", "UTF-8") + "=" + URLEncoder.encode(UserID, "UTF-8");
-                    data += "&" + URLEncoder.encode("DiseaseCode", "UTF-8") + "=" + URLEncoder.encode(DiseaseCode, "UTF-8");
-                    data += "&" + URLEncoder.encode("Date", "UTF-8") + "=" + URLEncoder.encode(Date, "UTF-8");
-
-                    link+=data;
-
-                    URL url = new URL(link);
-                    URLConnection conn = url.openConnection();
-
-                    conn.setDoOutput(true);
-                    OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
-
-                    wr.write(data);
-                    wr.flush();
-
-                    BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-                    StringBuilder sb = new StringBuilder();
-                    String line = null;
-
-                    // Read Server Response
-                    while ((line = reader.readLine()) != null) {
-                        sb.append(line);
-                        break;
-                    }
-                    return sb.toString();
-
-                } catch (Exception e) {
-                    return new String("Exception: " + e.getMessage());
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
                 }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+
+                bufferedReader.close();
+
+                return sb.toString().trim();
+
+
+            } catch (Exception e) {
+
+                Log.d("TAG", "GetData : Error ", e);
+                errorString = e.toString();
+
+                return null;
+            }
+
+        }
+    }
+
+    private void showMonthResult(){
+
+        String TAG_JSON="Monthdisease";
+        String TAG_MONTH = "Monthdisease";
+        String TAG_DISASENAME = "disease_name";
+        String TAG_PRECAUTION ="precaution";
+
+        try {
+            JSONObject jsonObject = new JSONObject(mJsonString);
+            JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
+
+            for(int i=0;i<jsonArray.length();i++){
+
+                JSONObject item = jsonArray.getJSONObject(i);
+
+                String month = item.getString(TAG_MONTH);
+                String disease_name = item.getString(TAG_DISASENAME);
+                String precaution = item.getString(TAG_PRECAUTION);
+
+                MonthDiseaseData monthdisease= new MonthDiseaseData();
+
+                monthdisease.setMonth(month);
+                monthdisease.setDisease_name(disease_name);
+                monthdisease.setDisease_precaution(precaution);
+
+                mArrayList.add(monthdisease);
+                mAdapter.notifyDataSetChanged();
+            }
+
+        } catch (JSONException e) {
+
+            Log.d("TAG", "showResult : ", e);
+        }
+
+    }
+    //////////여기까지가 월별질병확인부분
+
+
+    public void myDiseaseClicked(View v){
+        dmArrayList.clear();
+        dmAdapter.notifyDataSetChanged();
+
+        HealthActivity.GetMyData task = new HealthActivity.GetMyData();
+        task.execute( "http://ppmj789.dothome.co.kr/php/DiseaseRecord.php", "");
+    }
+
+    public class GetMyData extends AsyncTask<String, Void, String>{
+
+        ProgressDialog progressDialog;
+        String errorString = null;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            progressDialog = ProgressDialog.show(HealthActivity.this,
+                    "Please Wait", null, true, true);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+            progressDialog.dismiss();
+            dmTextViewResult.setText(result);
+            Log.d("TAG", "response - " + result);
+
+            if (result == null){
+
+                dmTextViewResult.setText(errorString);
+            }
+            else {
+
+                dmJsonString = result;
+                showMyResult();
             }
         }
-        InsertData task = new InsertData();
-        task.execute(UserID, DiseaseCode,Date);
 
+        @Override
+        protected String doInBackground(String... params) {
+
+            String serverURL = params[0];
+            String postParameters = "country=" + params[1];
+
+            try {
+
+                URL url = new URL(serverURL);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                httpURLConnection.setReadTimeout(5000);
+                httpURLConnection.setConnectTimeout(5000);
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.connect();
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(postParameters.getBytes("UTF-8"));
+                outputStream.flush();
+                outputStream.close();
+
+                int responseStatusCode = httpURLConnection.getResponseCode();
+                Log.d("TAG", "response code - " + responseStatusCode);
+
+                InputStream inputStream;
+                if(responseStatusCode == HttpURLConnection.HTTP_OK) {
+                    inputStream = httpURLConnection.getInputStream();
+                }
+                else{
+                    inputStream = httpURLConnection.getErrorStream();
+                }
+
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "UTF-8");
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+
+                StringBuilder sb = new StringBuilder();
+                String line;
+
+                while((line = bufferedReader.readLine()) != null){
+                    sb.append(line);
+                }
+
+                bufferedReader.close();
+
+                return sb.toString().trim();
+
+            } catch (Exception e) {
+
+                Log.d("TAG", "GetData : Error ", e);
+                errorString = e.toString();
+
+                return null;
+            }
+
+        }
+    }
+
+    private void showMyResult(){
+
+        String TAG_JSON="DiseaseRecord";
+        String TAG_DISASENAME = "disease_name";
+        String TAG_DATE ="date";
+
+        try {
+            JSONObject jsonObject = new JSONObject(dmJsonString);
+            JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
+
+            for(int i=0;i<jsonArray.length();i++){
+                JSONObject item = jsonArray.getJSONObject(i);
+
+                String disease_name = item.getString(TAG_DISASENAME);
+                String precaution = item.getString(TAG_DATE);
+
+                MonthDiseaseData monthdisease= new MonthDiseaseData();
+
+                monthdisease.setDisease_name(disease_name);
+                monthdisease.setDisease_precaution(precaution);
+
+                dmArrayList.add(monthdisease);
+                dmAdapter.notifyDataSetChanged();
+            }
+
+
+
+        } catch (JSONException e) {
+
+            Log.d("TAG", "showResult : ", e);
+        }
 
     }
 
 
-
-
+    /////OCR로 넘어가는 부분
+    public void OCRClicked(View v){
+        Intent intent = new Intent(getApplicationContext(), ocrActivity.class);
+        startActivity(intent);
+    }
+    /////OCR로 넘어가는 부분분
 }
