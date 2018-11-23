@@ -109,7 +109,10 @@ public class MainActivity extends AppCompatActivity {
                 });
 
                 //성공하고 다른 activity로 넘어감
-                startActivity((new Intent(getApplicationContext(),AfterLoginActivity.class)));
+                Intent intent = new Intent(getApplicationContext(), AfterLoginActivity.class);
+                intent.putExtra("userID",strLogin);
+                startActivity(intent);
+
                 finish();
 
             } else {
