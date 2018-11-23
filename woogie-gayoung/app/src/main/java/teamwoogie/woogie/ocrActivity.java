@@ -45,18 +45,11 @@ import java.util.Date;
 
 public class ocrActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 1;
-    private static final int REQUEST_TAKE_ALBUM = 2;
-    private static final int REQUEST_IMAGE_CROP = 3;
 
 
     // private Uri mImageCaptureUri;
     // private ImageView iv_UserPhoto;
-    private Button B_camera;
-    private Button B_album;
-
-
-
-
+    private Button b;
     private int id_view;
     // private String absoultePath;
 
@@ -65,51 +58,33 @@ public class ocrActivity extends AppCompatActivity {
     String datapath = "" ; //언어데이터가 있는 경로
 
 
-    //=================================================
-
-    // mCurrentPhotoPath
+    /////// new SooHyun ////
     private String imageFilePath;
-
-
-    // imageUri
     private Uri photoUri;
-    private Uri photoURI, albumURI
-
-
-    //=================================================
-
-
     private String timeStamp;
-   // private Date today;
+
+    private Date today;
+
     private String OCRresult;
+
     Bitmap recordPicture = null;
 
 
 
     @Override
 
-        public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
 
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_ocr);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_ocr);
         // iv_UserPhoto = (ImageView) this.findViewById(R.id.imageView);
-        B_camera = (Button) this.findViewById(R.id.add);
-        B_camera.setOnClickListener(new View.OnClickListener() {
+        b = (Button) this.findViewById(R.id.add);
+        b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
                 sendTakePhotoIntent();
             }
         });
-
-        B_album = (Button) this.findViewById(R.id.album);
-        B_album.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getAlbum();
-
-            }
-        });
-
 
 
         datapath = getFilesDir() + "/tesseract/";
@@ -148,6 +123,8 @@ public class ocrActivity extends AppCompatActivity {
 
 
     }
+///
+    ///// new SooHyun /////
 
     //// 이미지가 저장 될 파일을 만드는 함수////
     private File createImageFile() throws IOException {
@@ -174,102 +151,34 @@ public class ocrActivity extends AppCompatActivity {
     }
 
 
-
-    /// get Album ///
-    private void getAlbum()
-    {
-        Log.i("getAlbum", "Call");
-        Intent takeAlbumIntent = new Intent(Intent.ACTION_PICK);
-        takeAlbumIntent.setType("image/*");
-        takeAlbumIntent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-        startActivityForResult(takeAlbumIntent, REQUEST_TAKE_ALBUM);
-    }
-
-    private void galleryAddPic()
-    {
-        Log.i("galleryAddPic", "Call");
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE); // 파일 객체화
-        File f = new File(imageFilePath);
-        Uri contentUri = Uri.fromFile(f);
-        mediaScanIntent.setData(contentUri);
-        sendBroadcast(mediaScanIntent);
-        Toast.makeText(this, "사진이 저장되었습니다.", Toast.LENGTH_SHORT).show();
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode)
-        {
-            case REQUEST_IMAGE_CAPTURE:
-                if(resultCode == RESULT_OK)
-                { //Bundle extras = data.getExtras();
-                    Bitmap imageBitmap = BitmapFactory.decodeFile(imageFilePath);
-                    ExifInterface exif = null;
+        // super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            //Bundle extras = data.getExtras();
+            Bitmap imageBitmap = BitmapFactory.decodeFile(imageFilePath);
+            ExifInterface exif = null;
 
-                    try {
-                        exif = new ExifInterface(imageFilePath);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            try {
+                exif = new ExifInterface(imageFilePath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
-                    int exifOrientation;
-                    int exifDegree;
+            int exifOrientation;
+            int exifDegree;
 
-                    if (exif != null) {
-                        exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-                        exifDegree = exifOrientationToDegrees(exifOrientation);
-                    } else {
-                        exifDegree = 0;
-                    }
+            if (exif != null) {
+                exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+                exifDegree = exifOrientationToDegrees(exifOrientation);
+            } else {
+                exifDegree = 0;
+            }
 
-                    //((ImageView)findViewById(R.id.imageView)).setImageBitmap(rotate(imageBitmap, exifDegree));
-                }break;
-
-            case REQUEST_TAKE_ALBUM:
-                if(resultCode == RESULT_OK)
-                {
-                    if(data.getDate() != null)
-                    {
-                        try {
-                            File albumFile = null;
-                            albumFile = createImageFile();
-                            photoURI = data.getDate();
-                            albumURI = Uri.fromFile(albumFile);
-                            cropImage();
-                        }catch (Exception e){
-                            Log.e("TAKE_ALBUM_SINGLE ERROR", e.toString());
-                        }
-                    }
-                }break;
-
-            case REQUEST_IMAGE_CROP:
-                if(resultCode == RESULT_OK)
-                {
-                    galleryAddPic();
-                    //((ImageView)findViewById(R.id.imageView)).setImageBitmap(rotate(imageBitmap, exifDegree));
-
-                }break;
-
+            ((ImageView)findViewById(R.id.imageView)).setImageBitmap(rotate(imageBitmap, exifDegree));
         }
     }
 
-
-
-
-    ////////////////////////////////////////////////////////////
-    /// <카메라로 찍은 사진 정방향 회전>
     private int exifOrientationToDegrees(int exifOrientation)
     {
         if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
@@ -292,13 +201,6 @@ public class ocrActivity extends AppCompatActivity {
     }
 
     ///////////////////////////////////////////////////////
-
-
-
-
-    ///////////////////////////////////////////////////////
-    ///// < OCR 적용 --> text로 출력 > /////
-
     public void processImage(View view) {
 
         mTess.setImage(recordPicture); //여기 고쳐야함
@@ -349,12 +251,9 @@ public class ocrActivity extends AppCompatActivity {
             }
         }
     }
-    ////////////////////////////////////////////////////////////////
 
 
 
-    ////////////////////////////////////////////////////////////////
-    //// < DB에 insert > ///////
 
     private void insertToDatabase(String UserID, String DiseaseCode,String Date) {
         class InsertData extends AsyncTask<String, String, String> {
@@ -417,9 +316,11 @@ public class ocrActivity extends AppCompatActivity {
         }
         InsertData task = new InsertData();
         task.execute(UserID, DiseaseCode,Date);
+
+
     }
 
-    ///////////////////////////////////////////////////////////////////
+
 
 
 }
