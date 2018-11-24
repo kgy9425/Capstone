@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import android.widget.EditText;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ResponseHandler;
@@ -25,6 +27,9 @@ import org.apache.http.client.HttpClient;
 import java.util.List;
 import android.os.Looper;
 import android.util.Log;
+import java.util.Date;
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     EditText login_id, password;
@@ -50,10 +55,23 @@ public class MainActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.password);
 
 
+        Log.e("TAG",getDateString());
+        String tmp=getDateString();
+        Log.e("TAG", String.valueOf(tmp.charAt(6))+String.valueOf(tmp.charAt(7)));
+
+    }
+
+    public String getDateString()
+    {
+        SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.KOREA);
+        String str_date = df.format(new Date());
+
+        return str_date;
     }
 
     //임시 예방법 보여주는 버튼
     public void monthDiseaseClicked(View v){
+
         startActivity((new Intent(getApplicationContext(),ShowMonthDisease.class)));
     }
 

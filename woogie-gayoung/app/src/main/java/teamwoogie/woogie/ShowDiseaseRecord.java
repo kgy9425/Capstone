@@ -183,6 +183,10 @@ public class ShowDiseaseRecord extends AppCompatActivity {
 
                 dmArrayList.add(monthdisease);
                 dmAdapter.notifyDataSetChanged();
+
+                Log.e("TAG",dmArrayList.get(0).getDisease_name());
+                Log.e("TAG",dmArrayList.get(0).getDisease_precaution());
+
             }
 
 
