@@ -102,13 +102,9 @@ public class HealthActivity extends AppCompatActivity {
         Intent intent = getIntent();
         userID= intent.getStringExtra("userID");
         //월별
-        mRecyclerView = (RecyclerView) findViewById(R.id.listView_main_list);
-        mRecyclerView.setBackgroundColor(Color.BLACK);
         mTextViewResult=(TextView)findViewById(R.id.textView_main_result);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mArrayList = new ArrayList<>();
         mAdapter = new MonthAdapter(this, mArrayList);
-        mRecyclerView.setAdapter(mAdapter);
         //월별
 
         //내질병
@@ -132,6 +128,17 @@ public class HealthActivity extends AppCompatActivity {
             month=String.valueOf(tmp.charAt(5))+String.valueOf(tmp.charAt(6));
         Log.e("TAG", String.valueOf(tmp.charAt(5))+String.valueOf(tmp.charAt(6)));
 
+        mArrayList.clear();
+        mAdapter.notifyDataSetChanged();
+        HealthActivity.GetMonthData task = new HealthActivity.GetMonthData();
+        task.execute( "http://ppmj789.dothome.co.kr/php/monthdisease.php", "");
+
+        dmArrayList.clear();
+        dmAdapter.notifyDataSetChanged();
+        HealthActivity.GetMyData task2 = new HealthActivity.GetMyData();
+        task2.execute( "http://ppmj789.dothome.co.kr/php/DiseaseRecord.php","");
+
+
     }
 
     public String getDateString()
@@ -143,23 +150,17 @@ public class HealthActivity extends AppCompatActivity {
     }
 
 
-
+/*
     /////////월별질병확인부분 start
     public void monthDiseaseClicked(View v){
-        Log.e("tag", "z클릭성공");
+
         mArrayList.clear();
         mAdapter.notifyDataSetChanged();
         HealthActivity.GetMonthData task = new HealthActivity.GetMonthData();
-        Log.e("tag", "getmont실행");
         task.execute( "http://ppmj789.dothome.co.kr/php/monthdisease.php", "");
-        Log.e("tag", "task 실행");
-
-
-//        disease_show.setText(mArrayList.get(0).getDisease_name());
-//        precaution_show.setText(mArrayList.get(0).getDisease_precaution());
 
     }
-
+*/
     private class GetMonthData extends AsyncTask<String, Void, String> {
 
         ProgressDialog progressDialog;
@@ -315,18 +316,14 @@ public class HealthActivity extends AppCompatActivity {
         return sb.toString();
     }
 
-
-
-
+/*
     public void myDiseaseClicked(View v){
         dmArrayList.clear();
         dmAdapter.notifyDataSetChanged();
-
         HealthActivity.GetMyData task = new HealthActivity.GetMyData();
-
         task.execute( "http://ppmj789.dothome.co.kr/php/DiseaseRecord.php","");
     }
-
+*/
     public class GetMyData extends AsyncTask<String, Void, String>{
 
         ProgressDialog progressDialog;

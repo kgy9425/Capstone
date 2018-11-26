@@ -43,28 +43,19 @@ public class AddAlarmActivity extends Activity implements OnDateChangedListener,
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_addalarm);
 
         mNotification = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         mManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         //현재 시각을 취득
         mCalendar = new GregorianCalendar();
-        Log.i("add-activity-start",mCalendar.getTime().toString());
-        //셋 버튼, 리셋버튼의 리스너를 등록
-        setContentView(R.layout.activity_addalarm);
-
+        //셋 버튼의 리스너를 등록
         Button b = (Button)findViewById(R.id.set);
         b.setOnClickListener (new View.OnClickListener() {
             public void onClick (View v) {
                 setAlarm();
             }
         });
-
-//        b = (Button)findViewById(R.id.reset);
-//        b.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                resetAlarm();
-//            }
-//        });
 
         b= (Button)findViewById(R.id.picture) ;
         b.setOnClickListener(new View.OnClickListener()
@@ -89,6 +80,7 @@ public class AddAlarmActivity extends Activity implements OnDateChangedListener,
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent,1);
+
         PendingIntent pi = PendingIntent.getActivity(this, 0, intent, 0);
         return pi;
     }
@@ -107,7 +99,7 @@ public class AddAlarmActivity extends Activity implements OnDateChangedListener,
         repeatTime = Integer.parseInt(repeat.getText().toString());
         int repeatTimeformills = repeatTime * 60 * 60 * 1000;
 
-        mManager.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis()-300000, pendingIntent());
+        mManager.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis()-600000, pendingIntent());
         mManager.setRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), repeatTimeformills, pendingIntent());
         SimpleDateFormat sdf = new SimpleDateFormat("H-mm a");
         String strDate = sdf.format(mCalendar.getTime());
@@ -117,20 +109,7 @@ public class AddAlarmActivity extends Activity implements OnDateChangedListener,
         data.putExtra("alarm_time", strDate); //string으로 변환한 입력날짜를 전달
         data.putExtra("repeat_time",timeToRepeat);//반복시간전달
         startActivity(data);
-/*
-        Intent intent = new Intent(getApplicationContext(), AlarmResultActivity.class);
-        startActivity(intent);
-
-         //24시간 마다 반복하기
-        mManager.setRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), 86400000,
-                pendingIntent());*/
-
     }
-
-//    //알람의 해제  //사진찍을시해제
-//    private void resetAlarm() {
-//        mManager.cancel(pendingIntent());
-//    }
 
     //일자 설정 클래스의 상태변화 리스너
     public void onDateChanged (DatePicker view, int year, int monthOfYear, int dayOfMonth) {
