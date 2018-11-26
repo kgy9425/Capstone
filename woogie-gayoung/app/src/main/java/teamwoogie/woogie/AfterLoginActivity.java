@@ -100,6 +100,7 @@ public class AfterLoginActivity extends AppCompatActivity {
 
     public void healthClicked(View v){
         Intent intent = new Intent(getApplicationContext(), HealthActivity.class);
+        intent.putExtra("userID",userID);
         startActivity(intent);
     }
 

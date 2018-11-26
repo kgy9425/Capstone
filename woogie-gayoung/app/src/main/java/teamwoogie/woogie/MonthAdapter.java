@@ -16,20 +16,19 @@ public class MonthAdapter  extends RecyclerView.Adapter<MonthAdapter.CustomViewH
     private Activity context = null;
 
 
+
     public MonthAdapter(Activity context, ArrayList<MonthDiseaseData> list) {
         this.context = context;
         this.mList = list;
     }
 
     class CustomViewHolder extends RecyclerView.ViewHolder {
-        protected TextView month;
         protected TextView diseaseName;
         protected TextView precaution;
 
 
         public CustomViewHolder(View view) {
             super(view);
-            this.month= (TextView) view.findViewById(R.id.textView_list_month);
             this.diseaseName= (TextView) view.findViewById(R.id.textView_list_name);
             this.precaution = (TextView) view.findViewById(R.id.textView_list_precaution);
         }
@@ -47,7 +46,6 @@ public class MonthAdapter  extends RecyclerView.Adapter<MonthAdapter.CustomViewH
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder viewholder, int position) {
 
-        viewholder.month.setText(mList.get(position).getMonth());
         viewholder.diseaseName.setText(mList.get(position).getDisease_name());
         viewholder.precaution.setText(mList.get(position).getDisease_precaution());
     }

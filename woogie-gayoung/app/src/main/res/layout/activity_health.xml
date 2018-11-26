@@ -64,8 +64,8 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
-        android:text="내 질병기록 확인하기"
         android:onClick="myDiseaseClicked"
+        android:text="내 질병기록 확인하기"
         app:layout_constraintBottom_toTopOf="@+id/listView_my"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/monthDisease" />
@@ -107,5 +107,26 @@
         app:layout_constraintTop_toBottomOf="@+id/monthDisease"
         tools:ignore="MissingConstraints"></android.support.v7.widget.RecyclerView>
 
+    <TextView
+        android:id="@+id/disease_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text="병이름"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/precaution_show"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="324dp"
+        android:layout_marginLeft="324dp"
+        android:layout_marginTop="20dp"
+        android:text="예방법"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

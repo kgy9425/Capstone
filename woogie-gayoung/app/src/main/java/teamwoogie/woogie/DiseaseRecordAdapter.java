@@ -31,7 +31,7 @@ public class DiseaseRecordAdapter extends RecyclerView.Adapter<DiseaseRecordAdap
         public CustomViewHolder(View view) {
             super(view);
             this.diseaseName= (TextView) view.findViewById(R.id.textView_list_name);
-            this.date = (TextView) view.findViewById(R.id.textView_list_month);
+            this.date = (TextView) view.findViewById(R.id.textView_list_precaution);
         }
     }
 
