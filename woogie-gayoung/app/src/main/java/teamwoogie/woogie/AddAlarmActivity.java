@@ -59,12 +59,12 @@ public class AddAlarmActivity extends Activity implements OnDateChangedListener,
             }
         });
 
-        b = (Button)findViewById(R.id.reset);
-        b.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                resetAlarm();
-            }
-        });
+//        b = (Button)findViewById(R.id.reset);
+//        b.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                resetAlarm();
+//            }
+//        });
 
         b= (Button)findViewById(R.id.picture) ;
         b.setOnClickListener(new View.OnClickListener()
@@ -127,11 +127,10 @@ public class AddAlarmActivity extends Activity implements OnDateChangedListener,
 
     }
 
-    //알람의 해제  //사진찍을시해제
-    private void resetAlarm() {
-        mManager.cancel(pendingIntent());
-    }
-    //알람의 설정 시각에 발생하는 인텐트 작성 (여기다가 사진찍는거 구현하면됨)
+//    //알람의 해제  //사진찍을시해제
+//    private void resetAlarm() {
+//        mManager.cancel(pendingIntent());
+//    }
 
     //일자 설정 클래스의 상태변화 리스너
     public void onDateChanged (DatePicker view, int year, int monthOfYear, int dayOfMonth) {
