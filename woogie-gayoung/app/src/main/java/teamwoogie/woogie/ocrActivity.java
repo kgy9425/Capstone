@@ -27,6 +27,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,7 +55,8 @@ import java.util.List;
 
 public class ocrActivity extends AppCompatActivity{
     private ImageView imgMain;
-    private Button btnCamera, btnAlbum;
+//    private Button btnCamera, btnAlbum;
+    private ImageButton btnCamera, btnAlbum;
 
     private static final int PICK_FROM_CAMERA = 1;
     private static final int PICK_FROM_ALBUM = 2;
@@ -94,8 +96,8 @@ public class ocrActivity extends AppCompatActivity{
         checkPermissions();
 
         imgMain = (ImageView) findViewById(R.id.imageView);
-        btnCamera = (Button) findViewById(R.id.camera);
-        btnAlbum = (Button) findViewById(R.id.album);
+        btnCamera = (ImageButton) findViewById(R.id.camera);
+        btnAlbum = (ImageButton) findViewById(R.id.album);
 
 
 
