@@ -462,6 +462,7 @@ public class HealthActivity extends AppCompatActivity {
     /////OCR로 넘어가는 부분
     public void OCRClicked(View v){
         Intent intent = new Intent(getApplicationContext(), ocrActivity.class);
+        intent.putExtra("userID",userID);
         startActivity(intent);
     }
     /////OCR로 넘어가는 부분분

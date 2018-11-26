@@ -79,7 +79,7 @@ public class ocrActivity extends AppCompatActivity{
     private String timeStamp;
 
     private Date today;
-
+    String userID;
     private String OCRresult;
 
     Bitmap recordPicture = null;
@@ -88,6 +88,8 @@ public class ocrActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        userID= intent.getStringExtra("userID");
         setContentView(R.layout.activity_ocr);
         checkPermissions();
 
@@ -374,7 +376,7 @@ public class ocrActivity extends AppCompatActivity{
         TextView OCRTextView = (TextView) findViewById(R.id.OCRTextView);
         OCRTextView.setText(OCRresult);
 
-        insertToDatabase("tntnrr", OCRresult, timeStamp);
+        insertToDatabase(userID, OCRresult, timeStamp);
 
     }
 
