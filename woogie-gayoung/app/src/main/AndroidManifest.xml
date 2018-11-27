@@ -31,7 +31,7 @@
             android:required="false" />
 
         <provider
-            android:authorities="teamwoogie.woogie"
+            android:authorities="teamwoogie.woogie.provider"
             android:name="android.support.v4.content.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">

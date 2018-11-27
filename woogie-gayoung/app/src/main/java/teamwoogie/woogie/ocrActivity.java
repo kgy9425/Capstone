@@ -100,7 +100,6 @@ public class ocrActivity extends AppCompatActivity{
         btnAlbum = (ImageButton) findViewById(R.id.album);
 
 
-
         btnCamera.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
