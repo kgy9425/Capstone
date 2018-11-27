@@ -55,8 +55,8 @@ import java.util.List;
 
 public class ocrActivity extends AppCompatActivity{
     private ImageView imgMain;
-//    private Button btnCamera, btnAlbum;
-    private ImageButton btnCamera, btnAlbum;
+    private Button btnCamera, btnAlbum;
+    //private ImageButton btnCamera, btnAlbum;
 
     private static final int PICK_FROM_CAMERA = 1;
     private static final int PICK_FROM_ALBUM = 2;
@@ -96,8 +96,8 @@ public class ocrActivity extends AppCompatActivity{
         checkPermissions();
 
         imgMain = (ImageView) findViewById(R.id.imageView);
-        btnCamera = (ImageButton) findViewById(R.id.camera);
-        btnAlbum = (ImageButton) findViewById(R.id.album);
+        btnCamera = (Button) findViewById(R.id.camera);
+        btnAlbum = (Button) findViewById(R.id.album);
 
 
 
@@ -295,11 +295,9 @@ public class ocrActivity extends AppCompatActivity{
     }
     private Bitmap rotate(Bitmap bitmap, float degree) {
         recordPicture = null;
-
         Matrix matrix = new Matrix();
         matrix.postRotate(degree);
         recordPicture = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-
         return recordPicture;
     }
 */

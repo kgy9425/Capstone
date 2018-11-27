@@ -57,7 +57,7 @@ public class HealthActivity extends AppCompatActivity {
     private String month;
     //내질병선언
 
-   // public TextView month_show;
+    // public TextView month_show;
     public TextView disease_show;
     public TextView precaution_show;
 
@@ -127,17 +127,15 @@ public class HealthActivity extends AppCompatActivity {
     }
 
 
-/*
-    /////////월별질병확인부분 start
-    public void monthDiseaseClicked(View v){
-
-        mArrayList.clear();
-        mAdapter.notifyDataSetChanged();
-        HealthActivity.GetMonthData task = new HealthActivity.GetMonthData();
-        task.execute( "http://ppmj789.dothome.co.kr/php/monthdisease.php", "");
-
-    }
-*/
+    /*
+        /////////월별질병확인부분 start
+        public void monthDiseaseClicked(View v){
+            mArrayList.clear();
+            mAdapter.notifyDataSetChanged();
+            HealthActivity.GetMonthData task = new HealthActivity.GetMonthData();
+            task.execute( "http://ppmj789.dothome.co.kr/php/monthdisease.php", "");
+        }
+    */
     private class GetMonthData extends AsyncTask<String, Void, String> {
 
         ProgressDialog progressDialog;
@@ -250,24 +248,24 @@ public class HealthActivity extends AppCompatActivity {
             JSONObject jsonObject = new JSONObject(mJsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
             int i = (int) ( Math.random() * jsonArray.length());
-           // for(int i=0;i<jsonArray.length();i++){
-               // for(int i=0;i<1;i++){
-                JSONObject item = jsonArray.getJSONObject(i);
+            // for(int i=0;i<jsonArray.length();i++){
+            // for(int i=0;i<1;i++){
+            JSONObject item = jsonArray.getJSONObject(i);
 
-                String disease_name = item.getString(TAG_DISASENAME);
-                String precaution = item.getString(TAG_PRECAUTION);
+            String disease_name = item.getString(TAG_DISASENAME);
+            String precaution = item.getString(TAG_PRECAUTION);
 
-                MonthDiseaseData monthdisease= new MonthDiseaseData();
+            MonthDiseaseData monthdisease= new MonthDiseaseData();
 
-                monthdisease.setDisease_name(disease_name);
-                monthdisease.setDisease_precaution(precaution);
+            monthdisease.setDisease_name(disease_name);
+            monthdisease.setDisease_precaution(precaution);
 
-                disease_show.setText(disease_name);
-                precaution_show.setText(precaution);
+            disease_show.setText(disease_name);
+            precaution_show.setText(precaution);
 
 
-                mArrayList.add(monthdisease);
-                mAdapter.notifyDataSetChanged();
+            mArrayList.add(monthdisease);
+            mAdapter.notifyDataSetChanged();
             //}
 
         } catch (JSONException e) {
@@ -293,14 +291,14 @@ public class HealthActivity extends AppCompatActivity {
         return sb.toString();
     }
 
-/*
-    public void myDiseaseClicked(View v){
-        dmArrayList.clear();
-        dmAdapter.notifyDataSetChanged();
-        HealthActivity.GetMyData task = new HealthActivity.GetMyData();
-        task.execute( "http://ppmj789.dothome.co.kr/php/DiseaseRecord.php","");
-    }
-*/
+    /*
+        public void myDiseaseClicked(View v){
+            dmArrayList.clear();
+            dmAdapter.notifyDataSetChanged();
+            HealthActivity.GetMyData task = new HealthActivity.GetMyData();
+            task.execute( "http://ppmj789.dothome.co.kr/php/DiseaseRecord.php","");
+        }
+    */
     public class GetMyData extends AsyncTask<String, Void, String>{
 
         ProgressDialog progressDialog;
