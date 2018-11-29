@@ -20,11 +20,6 @@ public class AlarmActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-        /*
-        Intent intent = getIntent();
-        String alarmTime = intent.getStringExtra("alarmTime_KEY");
-        */
     }
 
 

@@ -9,7 +9,6 @@ public class DiseaseRecordData {
         return disease_code;
     }
 
-
     public String getDate() {
         return Date;
     }
@@ -25,6 +24,7 @@ public class DiseaseRecordData {
     public void setDate(String Date) {
         this.Date = Date;
     }
+
     public void setDisease_name(String disease_name) {
         this.disease_name = disease_name;
     }

@@ -150,8 +150,6 @@ public class ocrActivity extends AppCompatActivity{
         return true;
     }
 
-
-
     private void takePhoto() {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         File photoFile = null;
@@ -279,28 +277,6 @@ public class ocrActivity extends AppCompatActivity{
 
         }
     }
-
-/*
-    private int exifOrientationToDegrees(int exifOrientation)
-    {
-        if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_90) {
-            return 90;
-        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_180) {
-            return 180;
-        } else if (exifOrientation == ExifInterface.ORIENTATION_ROTATE_270) {
-            return 270;
-        }
-        return 0;
-    }
-    private Bitmap rotate(Bitmap bitmap, float degree) {
-        recordPicture = null;
-        Matrix matrix = new Matrix();
-        matrix.postRotate(degree);
-        recordPicture = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-        return recordPicture;
-    }
-*/
-
     //Android N crop image
     public void cropImage() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -370,7 +346,6 @@ public class ocrActivity extends AppCompatActivity{
 
         mTess.setImage(recordPicture); //여기 고쳐야함
         OCRresult = mTess.getUTF8Text();
-
 
         TextView OCRTextView = (TextView) findViewById(R.id.OCRTextView);
         OCRTextView.setText(OCRresult);
