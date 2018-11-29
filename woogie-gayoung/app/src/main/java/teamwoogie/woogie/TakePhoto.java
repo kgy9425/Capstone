@@ -1,4 +1,4 @@
-package teamwoogie.woogie;
+﻿package teamwoogie.woogie;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -74,8 +74,6 @@ public class TakePhoto extends AppCompatActivity implements ActivityCompat.OnReq
             e.printStackTrace();
         }
 
-
-        출처: http://gandus.tistory.com/481 [Gandus Blog.]
         // 런타임 퍼미션 완료될때 까지 화면에서 보이지 않게 해야합니다.
         surfaceView.setVisibility(View.GONE);
 
