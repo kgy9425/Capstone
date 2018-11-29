@@ -1,4 +1,5 @@
-package teamwoogie.woogie;
+package com.example.miji.myapplication;
+
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -22,7 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
-public class TakePhoto extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
+public class MainActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback {
 
     private static final String TAG = "android_camera_example";
     private static final int PERMISSIONS_REQUEST_CODE = 100;
@@ -52,7 +53,7 @@ public class TakePhoto extends AppCompatActivity implements ActivityCompat.OnReq
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        setContentView(R.layout.activity_camera);
+        setContentView(R.layout.activity_main);
 
         mLayout = findViewById(R.id.layout_main);
         surfaceView = findViewById(R.id.camera_preview_main);
@@ -108,7 +109,7 @@ public class TakePhoto extends AppCompatActivity implements ActivityCompat.OnReq
                         @Override
                         public void onClick(View view) {
 
-                            ActivityCompat.requestPermissions( TakePhoto.this, REQUIRED_PERMISSIONS,
+                            ActivityCompat.requestPermissions( MainActivity.this, REQUIRED_PERMISSIONS,
                                     PERMISSIONS_REQUEST_CODE);
                         }
                     }).show();

@@ -73,6 +73,7 @@
         <activity android:name=".ocrActivity"/>
         <activity android:name=".TakePhoto"/>
 
+
     </application>
 
 </manifest>
