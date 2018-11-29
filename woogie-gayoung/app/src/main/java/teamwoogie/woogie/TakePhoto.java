@@ -1,4 +1,5 @@
-﻿package teamwoogie.woogie;
+package teamwoogie.woogie;
+
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -16,6 +17,7 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import java.io.FileNotFoundException;
@@ -60,7 +62,7 @@ public class TakePhoto extends AppCompatActivity implements ActivityCompat.OnReq
 
         originPhotoUri = getIntent().getParcelableExtra("originPhoto");
         Log.i("Photo전달", originPhotoUri.toString());
-        //받아온 이미지 imaeview로 저장하기
+        //받아온 이미지 imageview로 저장하기
         try {
 
             Bitmap bm = MediaStore.Images.Media.getBitmap(getContentResolver(), originPhotoUri);
@@ -73,7 +75,8 @@ public class TakePhoto extends AppCompatActivity implements ActivityCompat.OnReq
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
+        //불투명하게 설정 0-255
+        image.getBackground().setAlpha(50);
         // 런타임 퍼미션 완료될때 까지 화면에서 보이지 않게 해야합니다.
         surfaceView.setVisibility(View.GONE);
 
