@@ -1,6 +1,7 @@
 package teamwoogie.woogie;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import teamwoogie.woogie.model.MonthDiseaseData;
 public class MonthAdapter  extends RecyclerView.Adapter<MonthAdapter.CustomViewHolder>{
     private ArrayList<MonthDiseaseData> mList = null;
     private Activity context = null;
+
 
 
     public MonthAdapter(Activity context, ArrayList<MonthDiseaseData> list) {
@@ -30,6 +32,8 @@ public class MonthAdapter  extends RecyclerView.Adapter<MonthAdapter.CustomViewH
             super(view);
             this.diseaseName= (TextView) view.findViewById(R.id.textView_list_name);
             this.precaution = (TextView) view.findViewById(R.id.textView_list_precaution);
+           diseaseName.setTextColor(Color.BLACK);
+           precaution.setTextColor(Color.BLACK);
         }
     }
 

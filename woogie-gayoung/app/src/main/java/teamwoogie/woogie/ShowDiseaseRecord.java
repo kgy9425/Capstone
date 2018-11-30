@@ -28,13 +28,15 @@ import teamwoogie.woogie.model.MonthDiseaseData;
 
 public class ShowDiseaseRecord extends AppCompatActivity {
 
-
-
     private TextView dmTextViewResult;
     private ArrayList<MonthDiseaseData> dmArrayList;
     private MonthAdapter dmAdapter;
     private RecyclerView dmRecyclerView;
     private String dmJsonString;
+
+    public TextView month;
+    public TextView diseasename;
+    public TextView precaution;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +64,8 @@ public class ShowDiseaseRecord extends AppCompatActivity {
 
                 GetData task = new GetData();
                 task.execute( "http://ppmj789.dothome.co.kr/php/DiseaseRecord.php", "");
+
+
             }
         });
 

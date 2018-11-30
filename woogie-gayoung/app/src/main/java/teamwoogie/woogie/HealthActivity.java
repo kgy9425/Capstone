@@ -1,31 +1,16 @@
 package teamwoogie.woogie;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.AssetManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,23 +18,14 @@ import java.util.Hashtable;
 import java.util.Enumeration;
 import java.util.Locale;
 import java.util.Properties;
-import com.googlecode.tesseract.android.TessBaseAPI;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.OutputStreamWriter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -70,20 +46,28 @@ public class HealthActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private EditText mEditTextSearchKeyword;
     private String mJsonString;
+    public TextView diseasename;
     //월별질병선언
+
     //내질병선언부분
     private TextView dmTextViewResult;
     private ArrayList<MonthDiseaseData> dmArrayList;
-    private MonthAdapter dmAdapter;
+    private RecordAdapter dmAdapter;
     private RecyclerView dmRecyclerView;
     private String dmJsonString;
     private String month;
+    //내질병선언
+
+    // public TextView month_show;
+    public TextView disease_show;
+    public TextView precaution_show;
 
     Hashtable<String,String> hashtable=new Hashtable<>();
 
-
     String userID;
     //내질병선언부분
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
@@ -93,24 +77,25 @@ public class HealthActivity extends AppCompatActivity {
         Intent intent = getIntent();
         userID= intent.getStringExtra("userID");
         //월별
-        mRecyclerView = (RecyclerView) findViewById(R.id.listView_main_list);
-        mRecyclerView.setBackgroundColor(Color.BLACK);
         mTextViewResult=(TextView)findViewById(R.id.textView_main_result);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mArrayList = new ArrayList<>();
         mAdapter = new MonthAdapter(this, mArrayList);
-        mRecyclerView.setAdapter(mAdapter);
         //월별
 
         //내질병
         dmRecyclerView = (RecyclerView) findViewById(R.id.listView_my);
-        dmRecyclerView.setBackgroundColor(Color.BLACK);
+        //dmRecyclerView.setBackgroundColor(Color.BLACK);
         dmTextViewResult=(TextView)findViewById(R.id.textView_main_result);
         dmRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         dmArrayList = new ArrayList<>();
-        dmAdapter = new MonthAdapter(this, dmArrayList);
+        dmAdapter = new RecordAdapter(this, dmArrayList);
+
         dmRecyclerView.setAdapter(dmAdapter);
         //내질병
+
+
+        disease_show = (TextView) findViewById(R.id.disease_show);
+        precaution_show = (TextView) findViewById(R.id.precaution_show);
 
         //현재 월 받아와서 저장
         String tmp=getDateString();
@@ -119,6 +104,18 @@ public class HealthActivity extends AppCompatActivity {
         else
             month=String.valueOf(tmp.charAt(5))+String.valueOf(tmp.charAt(6));
         Log.e("TAG", String.valueOf(tmp.charAt(5))+String.valueOf(tmp.charAt(6)));
+
+        mArrayList.clear();
+        mAdapter.notifyDataSetChanged();
+
+        HealthActivity.GetMonthData task = new HealthActivity.GetMonthData();
+        task.execute( "http://ppmj789.dothome.co.kr/php/monthdisease.php", "");
+
+        dmArrayList.clear();
+        dmAdapter.notifyDataSetChanged();
+        HealthActivity.GetMyData task2 = new HealthActivity.GetMyData();
+        task2.execute( "http://ppmj789.dothome.co.kr/php/DiseaseRecord.php","");
+
 
     }
 
@@ -131,15 +128,15 @@ public class HealthActivity extends AppCompatActivity {
     }
 
 
-
-    /////////월별질병확인부분 start
-    public void monthDiseaseClicked(View v){
-        mArrayList.clear();
-        mAdapter.notifyDataSetChanged();
-        HealthActivity.GetMonthData task = new HealthActivity.GetMonthData();
-        task.execute( "http://ppmj789.dothome.co.kr/php/monthdisease.php", "");
-    }
-
+    /*
+        /////////월별질병확인부분 start
+        public void monthDiseaseClicked(View v){
+            mArrayList.clear();
+            mAdapter.notifyDataSetChanged();
+            HealthActivity.GetMonthData task = new HealthActivity.GetMonthData();
+            task.execute( "http://ppmj789.dothome.co.kr/php/monthdisease.php", "");
+        }
+    */
     private class GetMonthData extends AsyncTask<String, Void, String> {
 
         ProgressDialog progressDialog;
@@ -251,22 +248,26 @@ public class HealthActivity extends AppCompatActivity {
         try {
             JSONObject jsonObject = new JSONObject(mJsonString);
             JSONArray jsonArray = jsonObject.getJSONArray(TAG_JSON);
+            int i = (int) ( Math.random() * jsonArray.length());
+            // for(int i=0;i<jsonArray.length();i++){
+            // for(int i=0;i<1;i++){
+            JSONObject item = jsonArray.getJSONObject(i);
 
-            for(int i=0;i<jsonArray.length();i++){
+            String disease_name = item.getString(TAG_DISASENAME);
+            String precaution = item.getString(TAG_PRECAUTION);
 
-                JSONObject item = jsonArray.getJSONObject(i);
+            MonthDiseaseData monthdisease= new MonthDiseaseData();
 
-                String disease_name = item.getString(TAG_DISASENAME);
-                String precaution = item.getString(TAG_PRECAUTION);
+            monthdisease.setDisease_name(disease_name);
+            monthdisease.setDisease_precaution(precaution);
 
-                MonthDiseaseData monthdisease= new MonthDiseaseData();
+            disease_show.setText(disease_name);
+            precaution_show.setText(precaution);
 
-                monthdisease.setDisease_name(disease_name);
-                monthdisease.setDisease_precaution(precaution);
 
-                mArrayList.add(monthdisease);
-                mAdapter.notifyDataSetChanged();
-            }
+            mArrayList.add(monthdisease);
+            mAdapter.notifyDataSetChanged();
+            //}
 
         } catch (JSONException e) {
 
@@ -291,18 +292,14 @@ public class HealthActivity extends AppCompatActivity {
         return sb.toString();
     }
 
-
-
-
-    public void myDiseaseClicked(View v){
-        dmArrayList.clear();
-        dmAdapter.notifyDataSetChanged();
-
-        HealthActivity.GetMyData task = new HealthActivity.GetMyData();
-
-        task.execute( "http://ppmj789.dothome.co.kr/php/DiseaseRecord.php","");
-    }
-
+    /*
+        public void myDiseaseClicked(View v){
+            dmArrayList.clear();
+            dmAdapter.notifyDataSetChanged();
+            HealthActivity.GetMyData task = new HealthActivity.GetMyData();
+            task.execute( "http://ppmj789.dothome.co.kr/php/DiseaseRecord.php","");
+        }
+    */
     public class GetMyData extends AsyncTask<String, Void, String>{
 
         ProgressDialog progressDialog;
@@ -438,6 +435,7 @@ public class HealthActivity extends AppCompatActivity {
     /////OCR로 넘어가는 부분
     public void OCRClicked(View v){
         Intent intent = new Intent(getApplicationContext(), ocrActivity.class);
+        intent.putExtra("userID",userID);
         startActivity(intent);
     }
     /////OCR로 넘어가는 부분분

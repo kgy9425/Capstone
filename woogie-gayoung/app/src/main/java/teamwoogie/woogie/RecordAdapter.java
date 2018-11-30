@@ -1,6 +1,7 @@
 package teamwoogie.woogie;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,29 +10,30 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import teamwoogie.woogie.model.MonthDiseaseData;
 
-import teamwoogie.woogie.model.DiseaseRecordData;
-
-
-public class DiseaseRecordAdapter extends RecyclerView.Adapter<DiseaseRecordAdapter.CustomViewHolder>{
-    private ArrayList<DiseaseRecordData> mList = null;
+public class RecordAdapter  extends RecyclerView.Adapter<RecordAdapter.CustomViewHolder>{
+    private ArrayList<MonthDiseaseData> mList = null;
     private Activity context = null;
 
 
-    public DiseaseRecordAdapter(Activity context, ArrayList<DiseaseRecordData> list) {
+
+    public RecordAdapter(Activity context, ArrayList<MonthDiseaseData> list) {
         this.context = context;
         this.mList = list;
     }
 
     class CustomViewHolder extends RecyclerView.ViewHolder {
         protected TextView diseaseName;
-        protected TextView date;
+        protected TextView precaution;
 
 
         public CustomViewHolder(View view) {
             super(view);
             this.diseaseName= (TextView) view.findViewById(R.id.textView_list_name);
-            this.date = (TextView) view.findViewById(R.id.textView_list_precaution);
+            this.precaution = (TextView) view.findViewById(R.id.textView_list_precaution);
+            diseaseName.setTextColor(Color.BLACK);
+            precaution.setTextColor(Color.BLACK);
         }
     }
 
@@ -48,7 +50,7 @@ public class DiseaseRecordAdapter extends RecyclerView.Adapter<DiseaseRecordAdap
     public void onBindViewHolder(@NonNull CustomViewHolder viewholder, int position) {
 
         viewholder.diseaseName.setText(mList.get(position).getDisease_name());
-        viewholder.date.setText(mList.get(position).getDate());
+        viewholder.precaution.setText(mList.get(position).getDisease_precaution());
     }
 
     @Override
