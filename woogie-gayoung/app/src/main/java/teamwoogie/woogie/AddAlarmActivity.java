@@ -93,8 +93,6 @@ public class AddAlarmActivity extends Activity implements OnDateChangedListener,
         {
             public void onClick(View v)
             {
-//                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//                startActivityForResult(intent,1);
                 takePhoto();
             }
         });
@@ -113,7 +111,7 @@ public class AddAlarmActivity extends Activity implements OnDateChangedListener,
         Intent intent = new Intent(getApplicationContext(), TakePhoto.class);
         startActivityForResult(intent,1);
         intent.putExtra("originPhoto", photoUri);
-        Log.i("Photo", photoUri.toString());
+        Log.i("Miji", "원본Uri 촬영  :"+photoUri.toString());
         PendingIntent pi = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         return pi;
     }
@@ -125,7 +123,7 @@ public class AddAlarmActivity extends Activity implements OnDateChangedListener,
         repeatTime = Integer.parseInt(repeat.getText().toString());
         int repeatTimeformills = repeatTime * 60 * 60 * 1000;
 
-        mManager.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis()-600000, pendingIntent());
+        mManager.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis()-300000, pendingIntent());
         mManager.setRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), repeatTimeformills, pendingIntent());
         SimpleDateFormat sdf = new SimpleDateFormat("H-mm a");
         String strDate = sdf.format(mCalendar.getTime());
@@ -265,21 +263,22 @@ public class AddAlarmActivity extends Activity implements OnDateChangedListener,
             e.printStackTrace();
         }
     }
-
-    //check file on the device
-    private void checkFile(File dir) {
-        //디렉토리가 없으면 디렉토리를 만들고 그후에 파일을 카피
-        if(!dir.exists()&& dir.mkdirs()) {
-            copyFiles();
-        }
-        //디렉토리가 있지만 파일이 없으면 파일카피 진행
-        if(dir.exists()) {
-            String datafilepath = datapath+ "/tessdata/eng.traineddata";
-            File datafile = new File(datafilepath);
-            if(!datafile.exists()) {
-                copyFiles();
-            }
-        }
-    }
+//
+//    //check file on the device
+//    private void checkFile(File dir) {
+//        //디렉토리가 없으면 디렉토리를 만들고 그후에 파일을 카피
+//        if(!dir.exists()&& dir.mkdirs()) {
+//            copyFiles();
+//        }
+//        //디렉토리가 있지만 파일이 없으면 파일카피 진행
+//        if(dir.exists()) {
+//            String datafilepath = datapath+ "/tessdata/eng.traineddata";
+//            File datafile = new File(datafilepath);
+//            if(!datafile.exists()) {
+//                copyFiles();
+//            }
+//        }
+//
+//    }
 }
 
