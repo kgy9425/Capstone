@@ -14,13 +14,12 @@ This application is a healthcare platform for the public.
 
 ## Development Environment
 * Dialogflow
-* Android Platform 2.3.3
+* Android Platform 3.2.3
 * Android SDK
 * JAVA SDK 1.6
 * Google Maps SDK for Android(지도 기능)
 * Google Places SDK for Android
-* OpenCV
-* dynamoDB
+* Mysql
 
 ## Role
 Ga-Young 
