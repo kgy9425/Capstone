@@ -1,4 +1,4 @@
-package teamwoogie.woogie;
+﻿package teamwoogie.woogie;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -47,6 +47,7 @@ public class ChatbotActivity extends AppCompatActivity implements View.OnClickLi
     private ChatView chatView;
     private Users chat;
     private Users user;
+    String userID;
 
     Button button;
 
@@ -58,11 +59,13 @@ public class ChatbotActivity extends AppCompatActivity implements View.OnClickLi
 
         initChatView();
 
+        Intent intent = getIntent();
+        userID= intent.getStringExtra("userID");
 
 
 
         //Language, Dialogflow Client access token
-        final LanguageConfig config = new LanguageConfig("ko", "4aebabe2290a465983381df0eface386");
+        final LanguageConfig config = new LanguageConfig("ko", "Your Api.ai access key");
         initService(config);
     }
 
@@ -206,6 +209,7 @@ public class ChatbotActivity extends AppCompatActivity implements View.OnClickLi
                                 answering.equals("죄송해요. 잘 못 이해 한 것 같아요.")  ) {
                             Intent intent = new Intent(getApplicationContext(), ShowMapActivity.class);
                             intent.putExtra("name",hospital_name);
+                            intent.putExtra("userID",userID);
                             startActivity(intent);
                         }
                     }

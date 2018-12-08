@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
+import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 
@@ -61,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
         login_id = (EditText) findViewById(R.id.login_id);
         password = (EditText) findViewById(R.id.password);
 
+        password.setInputType(InputType.TYPE_CLASS_TEXT);
+        PasswordTransformationMethod passwdtm = new PasswordTransformationMethod();
+        password.setTransformationMethod(passwdtm);
 
         Log.e("TAG",getDateString());
         String tmp=getDateString();

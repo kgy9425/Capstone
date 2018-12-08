@@ -77,6 +77,7 @@ public class HealthActivity extends AppCompatActivity {
         userID= intent.getStringExtra("userID");
         //월별
         mTextViewResult=(TextView)findViewById(R.id.textView_main_result);
+        mTextViewResult.setTextSize(25);
         mArrayList = new ArrayList<>();
         mAdapter = new MonthAdapter(this, mArrayList);
         //월별
@@ -95,6 +96,7 @@ public class HealthActivity extends AppCompatActivity {
 
         disease_show = (TextView) findViewById(R.id.disease_show);
         precaution_show = (TextView) findViewById(R.id.precaution_show);
+        precaution_show.setTextSize(15);
 
         //현재 월 받아와서 저장
         String tmp=getDateString();

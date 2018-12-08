@@ -5,44 +5,67 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.hardware.Camera.Size;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
-
+import static android.app.Activity.RESULT_OK;
 
 // 카메라에서 가져온 영상을 보여주는 카메라 프리뷰 클래스
 class CameraPreview extends ViewGroup implements SurfaceHolder.Callback {
+
 
     private final String TAG = "CameraPreview";
 
     private int mCameraID;
     private SurfaceView mSurfaceView;
     private SurfaceHolder mHolder;
-    private Camera mCamera;
+    public Camera mCamera;
     private Camera.CameraInfo mCameraInfo;
     private int mDisplayOrientation;
     private List<Size> mSupportedPreviewSizes;
     private Size mPreviewSize;
     private boolean isPreview = false;
+    public Uri comparePhotoUri;
+    public Uri originPhotoUri;
+    public Bitmap originBitmap;
+    public Bitmap compareBitmap;
 
+    public byte[] currentData;
+    public boolean isItTrue = true;
     private AppCompatActivity mActivity;
 
 
@@ -50,14 +73,13 @@ class CameraPreview extends ViewGroup implements SurfaceHolder.Callback {
         super(context);
 
 
-        Log.d("@@@", "Preview");
+        Log.d("Miji", "Preview");
 
 
 
         mActivity = activity;
         mCameraID = cameraID;
         mSurfaceView = surfaceView;
-
 
         mSurfaceView.setVisibility(View.VISIBLE);
 
@@ -66,11 +88,10 @@ class CameraPreview extends ViewGroup implements SurfaceHolder.Callback {
         mHolder = mSurfaceView.getHolder();
         mHolder.addCallback(this);
 
+//        originPhotoUri = TakePhoto.getOriginPhotoUri();
+//        Log.d("Miji", "원래uri camerapreview 에서 띄우기 "+ originPhotoUri.toString());
+//        comparePicture();
     }
-
-
-
-
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -85,7 +106,6 @@ class CameraPreview extends ViewGroup implements SurfaceHolder.Callback {
             mPreviewSize = getOptimalPreviewSize(mSupportedPreviewSizes, width, height);
         }
     }
-
 
 
     @Override
@@ -173,8 +193,6 @@ class CameraPreview extends ViewGroup implements SurfaceHolder.Callback {
 
     }
 
-
-
     public void surfaceDestroyed(SurfaceHolder holder) {
         // Surface will be destroyed when we return, so stop the preview.
         // Release the camera for other applications.
@@ -187,7 +205,6 @@ class CameraPreview extends ViewGroup implements SurfaceHolder.Callback {
         }
 
     }
-
 
     private Size getOptimalPreviewSize(List<Size> sizes, int w, int h) {
         final double ASPECT_TOLERANCE = 0.1;
@@ -221,8 +238,6 @@ class CameraPreview extends ViewGroup implements SurfaceHolder.Callback {
         }
         return optimalSize;
     }
-
-
 
     public void surfaceChanged(SurfaceHolder holder, int format, int w, int h) {
 
@@ -258,8 +273,6 @@ class CameraPreview extends ViewGroup implements SurfaceHolder.Callback {
 
     }
 
-
-
     /**
      * 안드로이드 디바이스 방향에 맞는 카메라 프리뷰를 화면에 보여주기 위해 계산합니다.
      */
@@ -292,17 +305,14 @@ class CameraPreview extends ViewGroup implements SurfaceHolder.Callback {
         return result;
     }
 
-
-
     public void takePicture(){
-
         mCamera.takePicture(shutterCallback, rawCallback, jpegCallback);
     }
 
 
     Camera.ShutterCallback shutterCallback = new Camera.ShutterCallback() {
         public void onShutter() {
-
+            Log.d("Miji","콜백실행");
         }
     };
 
@@ -313,38 +323,36 @@ class CameraPreview extends ViewGroup implements SurfaceHolder.Callback {
     };
 
 
-    //참고 : http://stackoverflow.com/q/37135675
     Camera.PictureCallback jpegCallback = new Camera.PictureCallback() {
         public void onPictureTaken(byte[] data, Camera camera) {
 
+            Log.d("tag","픽쳐콜백실행");
             //이미지의 너비와 높이 결정
             int w = camera.getParameters().getPictureSize().width;
             int h = camera.getParameters().getPictureSize().height;
             int orientation = calculatePreviewOrientation(mCameraInfo, mDisplayOrientation);
 
-
             //byte array를 bitmap으로 변환
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-            Bitmap bitmap = BitmapFactory.decodeByteArray( data, 0, data.length, options);
-
+            compareBitmap  = BitmapFactory.decodeByteArray( data, 0, data.length, options);
 
             //이미지를 디바이스 방향으로 회전
             Matrix matrix = new Matrix();
             matrix.postRotate(orientation);
-            bitmap =  Bitmap.createBitmap(bitmap, 0, 0, w, h, matrix, true);
+            compareBitmap =  Bitmap.createBitmap(compareBitmap, 0, 0, w, h, matrix, true);
 
             //bitmap을 byte array로 변환
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-            byte[] currentData = stream.toByteArray();
+            compareBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            currentData = stream.toByteArray();
 
             //파일로 저장
             new SaveImageTask().execute(currentData);
 
+            Log.d("Miji", "비교uri" + currentData.toString());
         }
     };
-
 
 
     private class SaveImageTask extends AsyncTask<byte[], Void, Void> {
@@ -402,4 +410,43 @@ class CameraPreview extends ViewGroup implements SurfaceHolder.Callback {
         }
 
     }
+
+
+    public void comparePicture(){
+        Log.d("Miji", "비교알고리즘 구동 시작");
+        int isSame=0;
+
+        try {
+            Bitmap bm = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), originPhotoUri);
+            Matrix m = new Matrix(); //this.getContentResolver(
+            m.setRotate(90,(float)bm.getWidth(), (float)bm.getHeight());
+            originBitmap = Bitmap.createBitmap(bm,0,0,bm.getWidth(),bm.getHeight(),m,false);
+            bm.recycle();
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        int[] buffer1 = new int[originBitmap.getWidth()*originBitmap.getHeight()];
+        originBitmap.getPixels(buffer1,0,originBitmap.getWidth(),0,0,originBitmap.getWidth(),originBitmap.getHeight());
+
+        int[] buffer2 = new int[1440*1440];
+        compareBitmap.getPixels(buffer2,0,1440,0,0,1440,1440);
+
+        for(int i =0; i<originBitmap.getWidth()*originBitmap.getHeight();i++){
+            buffer1[i] = buffer1[i] ^ buffer2[i]; //두그림 xor
+            if(buffer1[i] == 0){//같은경우
+                isSame++;
+            }
+        }
+        Log.d("같은픽셀수", Integer.toString(isSame));
+
+        if(isSame < 100 ) isItTrue = false;
+
+
+    }
+
 }
