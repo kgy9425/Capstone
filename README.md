@@ -3,6 +3,11 @@ Project name : 友GI
 
 Teamname 友ㄱㄱ Ga-Young Kim, Mi-Ji Park, Soo-Hyun Park
 
+## Screenshot
+<div>
+  <img width="200" src="https://user-images.githubusercontent.com/26923150/49684904-a4a99280-fb1d-11e8-9841-e69c11809f97.png">
+</div>
+
 
 ## Description
 This application is a healthcare platform for the public. 
