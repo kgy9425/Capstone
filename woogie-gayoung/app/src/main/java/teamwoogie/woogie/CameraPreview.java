@@ -88,9 +88,15 @@ class CameraPreview extends ViewGroup implements SurfaceHolder.Callback {
         mHolder = mSurfaceView.getHolder();
         mHolder.addCallback(this);
 
+<<<<<<< HEAD
         originPhotoUri = TakePhoto.getOriginPhotoUri();
         Log.d("Miji", "원래uri camerapreview 에서 띄우기 "+ originPhotoUri.toString());
         comparePicture();
+=======
+//        originPhotoUri = TakePhoto.getOriginPhotoUri();
+//        Log.d("Miji", "원래uri camerapreview 에서 띄우기 "+ originPhotoUri.toString());
+//        comparePicture();
+>>>>>>> 27b3957f7f227cdf9678c1c9ad3243779e07beba
     }
 
     @Override

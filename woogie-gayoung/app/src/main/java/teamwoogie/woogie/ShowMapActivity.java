@@ -93,6 +93,7 @@ public class ShowMapActivity extends AppCompatActivity
 
 
     String hospital_name = null;
+    String userID;
 
 ///////////////////////////////////////////////////////////////////////////
 
@@ -114,10 +115,10 @@ public class ShowMapActivity extends AppCompatActivity
         Intent intent = getIntent();
         //hospital_name : 병원 종류
         hospital_name= intent.getStringExtra("name");
-
+        userID= intent.getStringExtra("userID");
 
         //임시로 병원 종류 보여주려고
-      //  temp=(TextView)findViewById(R.id.temp_text);
+        //  temp=(TextView)findViewById(R.id.temp_text);
         //temp.setText(hospital_name);
 
 
@@ -134,6 +135,7 @@ public class ShowMapActivity extends AppCompatActivity
 
                 Intent intent = new Intent(getApplicationContext(), ShowHospitalMapActivity.class);
                 intent.putExtra("name",hospital_name);
+                intent.putExtra("userID",userID);
                 intent.putExtra("current_position_x", mCurrentLocatiion.getLatitude());
                 intent.putExtra("current_position_y", mCurrentLocatiion.getLongitude());
                 startActivity(intent);

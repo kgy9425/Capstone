@@ -104,7 +104,11 @@ public class TakePhoto extends AppCompatActivity implements ActivityCompat.OnReq
         image = findViewById(R.id.origin);
 
         originPhotoUri = getIntent().getParcelableExtra("originPhoto");
+<<<<<<< HEAD
         Log.i("Miji","원래 uri 성공적 전달"+ originPhotoUri.toString());
+=======
+//        Log.i("Miji","원래 uri 성공적 전달"+ originPhotoUri.toString());
+>>>>>>> 27b3957f7f227cdf9678c1c9ad3243779e07beba
 
 
         try {
@@ -136,14 +140,26 @@ public class TakePhoto extends AppCompatActivity implements ActivityCompat.OnReq
             public void onClick(View v) {
                 Log.i("Miji", "캡쳐버튼 클릭");
                 mCameraPreview.takePicture(); //비교하는 uri 받아오기
+<<<<<<< HEAD
+=======
+                Toast.makeText(TakePhoto.this, "약을 잘 드셨네요! 칭찬도장 꾹꾹꾹!", Toast.LENGTH_SHORT).show();
+
+>>>>>>> 27b3957f7f227cdf9678c1c9ad3243779e07beba
 
 //                Uri uri=mCameraPreview.getcomparePhotoUri();
 //                Log.i("Miji", "비교uri 받아옴: "+uri.toString());
 
+<<<<<<< HEAD
              //   comparePhotoUri = mCameraPreview.getcomparePhotoUri();
                // Log.i("Miji", "비교uri 받아옴: "+comparePhotoUri.toString());
                 //  Log.i("Miji", "비교Uri 받아옴: "+comparePhotoUri.toString());
              //   mCamera.stopPreview();
+=======
+                //   comparePhotoUri = mCameraPreview.getcomparePhotoUri();
+                // Log.i("Miji", "비교uri 받아옴: "+comparePhotoUri.toString());
+                //  Log.i("Miji", "비교Uri 받아옴: "+comparePhotoUri.toString());
+                //   mCamera.stopPreview();
+>>>>>>> 27b3957f7f227cdf9678c1c9ad3243779e07beba
                 //  comparePicture();
                 //  Log.i("Miji", "비교알고리즘 구동 끝: ");
 //                if(isItTrue = true){

@@ -47,6 +47,7 @@ public class ShowMonthDisease extends AppCompatActivity {
         setContentView(R.layout.showmonthdisease);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.listView_main_list);
+
         mTextViewResult=(TextView)findViewById(R.id.textView_main_result);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 

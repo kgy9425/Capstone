@@ -97,7 +97,11 @@ public class ocrActivity extends AppCompatActivity{
 
         imgMain = (ImageView) findViewById(R.id.imageView);
         btnCamera = (ImageButton) findViewById(R.id.camera);
+<<<<<<< HEAD
         btnAlbum = (ImageButton) findViewById(R.id.album);
+=======
+        //btnAlbum = (ImageButton) findViewById(R.id.album);
+>>>>>>> 27b3957f7f227cdf9678c1c9ad3243779e07beba
 
 
         btnCamera.setOnClickListener(new View.OnClickListener()
@@ -107,13 +111,13 @@ public class ocrActivity extends AppCompatActivity{
                 takePhoto();
             }
         });
-        btnAlbum.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                goToAlbum();
-            }
-        });
+       // btnAlbum.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View v) {
+//                goToAlbum();
+//            }
+//        });
 
         datapath = getFilesDir() + "/tesseract/";
         checkFile(new File(datapath + "tessdata/"));
@@ -193,9 +197,9 @@ public class ocrActivity extends AppCompatActivity{
             case R.id.camera:
                 takePhoto();
                 break;
-            case R.id.album:
-                goToAlbum();
-                break;
+            //case R.id.album:
+               // goToAlbum();
+               // break;
         }
     }
 

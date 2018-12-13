@@ -18,20 +18,41 @@
 
     <TextView
         android:id="@+id/OCRTextView"
+<<<<<<< HEAD
         android:layout_width="382dp"
         android:layout_height="59dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+=======
+        android:layout_width="235dp"
+        android:layout_height="110dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="38dp"
+        android:layout_marginLeft="38dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginRight="38dp"
+        android:layout_marginBottom="42dp"
+>>>>>>> 27b3957f7f227cdf9678c1c9ad3243779e07beba
         android:background="#fff"
         android:text="여기에 결과 출력됩니다."
         android:textColor="#169cdf"
         android:textSize="20dp"
+<<<<<<< HEAD
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="387dp" />
+=======
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/camera"
+        tools:ignore="MissingConstraints" />
+>>>>>>> 27b3957f7f227cdf9678c1c9ad3243779e07beba
 
 
     <ImageView
         android:id="@+id/imageView"
+<<<<<<< HEAD
         android:layout_width="357dp"
         android:layout_height="194dp"
 
@@ -52,12 +73,58 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="298dp" />
+=======
+        android:layout_width="0dp"
+        android:layout_height="220dp"
+
+        android:layout_marginStart="38dp"
+        android:layout_marginLeft="38dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginRight="38dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/camera"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!-- android:src="@mipmap/ic_launcher"-->
+
+    <ImageButton
+        android:id="@+id/camera"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="left"
+        android:layout_marginStart="82dp"
+        android:layout_marginLeft="82dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginRight="26dp"
+        android:layout_marginBottom="52dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:onClick="processImage"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/button_camera"
+        app:layout_constraintBottom_toTopOf="@+id/OCRTextView"
+        app:layout_constraintEnd_toStartOf="@+id/Run"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+>>>>>>> 27b3957f7f227cdf9678c1c9ad3243779e07beba
 
 
     <ImageButton
         android:id="@+id/Run"
+<<<<<<< HEAD
         android:layout_width="154dp"
         android:layout_height="113dp"
+=======
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="left"
+        android:layout_marginEnd="94dp"
+        android:layout_marginRight="94dp"
+>>>>>>> 27b3957f7f227cdf9678c1c9ad3243779e07beba
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:onClick="processImage"
@@ -65,8 +132,15 @@
         android:scaleType="fitCenter"
         android:src="@drawable/button_runocr"
         android:text="RUN OCR"
+<<<<<<< HEAD
         android:layout_gravity="left"
         tools:layout_editor_absoluteX="120dp"
         tools:layout_editor_absoluteY="454dp" />
+=======
+        app:layout_constraintBottom_toBottomOf="@+id/camera"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/camera"
+        app:layout_constraintTop_toTopOf="@+id/camera" />
+>>>>>>> 27b3957f7f227cdf9678c1c9ad3243779e07beba
 
 </android.support.constraint.ConstraintLayout>

@@ -33,7 +33,9 @@ public class RecordAdapter  extends RecyclerView.Adapter<RecordAdapter.CustomVie
             this.diseaseName= (TextView) view.findViewById(R.id.textView_list_name);
             this.precaution = (TextView) view.findViewById(R.id.textView_list_precaution);
             diseaseName.setTextColor(Color.BLACK);
+            diseaseName.setTextSize(20);
             precaution.setTextColor(Color.BLACK);
+            precaution.setTextSize(20);
         }
     }
 
