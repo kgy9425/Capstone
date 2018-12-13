@@ -67,6 +67,7 @@ public class AddAlarmActivity extends Activity implements OnDateChangedListener,
             Manifest.permission.CAMERA};
     private static final int MULTIPLE_PERMISSIONS = 101;
     String datapath = "" ; //언어데이터가 있는 경로
+    String userID;
 
     private NotificationManager mNotification;
 
@@ -74,6 +75,9 @@ public class AddAlarmActivity extends Activity implements OnDateChangedListener,
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addalarm);
+
+        Intent intent = getIntent();
+        userID= intent.getStringExtra("userID");
 
         mNotification = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         mManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
@@ -113,7 +117,7 @@ public class AddAlarmActivity extends Activity implements OnDateChangedListener,
         Intent intent = new Intent(getApplicationContext(), TakePhoto.class);
         startActivityForResult(intent,1);
         intent.putExtra("originPhoto", photoUri);
-        Log.i("Photo", photoUri.toString());
+        Log.i("원본사진uri주소", photoUri.toString());
         PendingIntent pi = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         return pi;
     }
@@ -125,7 +129,7 @@ public class AddAlarmActivity extends Activity implements OnDateChangedListener,
         repeatTime = Integer.parseInt(repeat.getText().toString());
         int repeatTimeformills = repeatTime * 60 * 60 * 1000;
 
-        mManager.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis()-600000, pendingIntent());
+        mManager.set(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), pendingIntent());
         mManager.setRepeating(AlarmManager.RTC_WAKEUP, mCalendar.getTimeInMillis(), repeatTimeformills, pendingIntent());
         SimpleDateFormat sdf = new SimpleDateFormat("H-mm a");
         String strDate = sdf.format(mCalendar.getTime());
@@ -134,6 +138,7 @@ public class AddAlarmActivity extends Activity implements OnDateChangedListener,
         Intent data = new Intent(this, AlarmResultActivity.class);
         data.putExtra("alarm_time", strDate); //string으로 변환한 입력날짜를 전달
         data.putExtra("repeat_time",timeToRepeat);//반복시간전달
+        data.putExtra("userID",userID);
         startActivity(data);
     }
 
@@ -281,5 +286,7 @@ public class AddAlarmActivity extends Activity implements OnDateChangedListener,
             }
         }
     }
+
+
 }
 

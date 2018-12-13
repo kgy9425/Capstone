@@ -1,8 +1,4 @@
-//ShowHospitalMapActivity (non-searcing)//
-
-
-
-package teamwoogie.woogie;
+﻿package teamwoogie.woogie;
 
 
 import android.app.FragmentManager;
@@ -15,6 +11,7 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -38,7 +35,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 
 public class ShowHospitalMapActivity extends AppCompatActivity
@@ -47,22 +46,42 @@ public class ShowHospitalMapActivity extends AppCompatActivity
 
     public static final int LOAD_SUCCESS = 101;
     private static final String TAG = "googlemap_example";
-    //  private List<HashMap<String,String>> Hospital_infoList = null;
-    // JSONArray jsonArray ;
+    private List<HashMap<String,String>> Hospital_infoList = null;
+    HashMap<String, String> hospitalinfoMap = null;
+    HashMap<String, String> getMap = null;
+    JSONArray jsonArray ;
 
+    private String REQUEST_URL= null;
 
-
-    //  String hospital_name = null;
-    Double current_position_x = null;
-    Double current_position_y = null;
+    String hospital_name ;
+    Double current_position_x ;
+    Double current_position_y ;
     String title = null;
     LatLng position = null;
+
+    String H_lat = null;
+    String H_lng = null;
+    String H_name = null;
+
+
+    ////////////
+    String Map_hospital_x;
+    String Map_hospital_y;
+    String Map_hospital_name;
+    Double lat = null;
+    Double lng = null;
+
+    String userID;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        hospital_name = null;
+        current_position_y = null;
+        current_position_x = null;
         setContentView(R.layout.activity_show_hospital_map);
 
         FragmentManager fragmentManager = getFragmentManager();
@@ -70,22 +89,25 @@ public class ShowHospitalMapActivity extends AppCompatActivity
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
         Intent intent = getIntent();
-        //  hospital_name = intent.getStringExtra("name");
+        hospital_name = intent.getStringExtra("name");
+        userID=intent.getStringExtra("userID");
         current_position_x = intent.getDoubleExtra("current_position_x", 37.56);
         current_position_y = intent.getDoubleExtra("current_position_y", 126.97);
 
 
-        //Hospital_infoList = new ArrayList<HashMap<String,String>>();
-        //getJSON();
+        REQUEST_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+current_position_x+",%20"+current_position_y+"&radius=1500&keyword="+hospital_name+"&key=your google map access key";
+        Hospital_infoList = new ArrayList<HashMap<String,String>>();
 
     }
 
 /*
     private String REQUEST_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
             + current_position_x +",%" + current_position_y+
-            "&radius=1500&keyword= " + hospital_name + "&key=AIzaSyAO3PnnhQGoMHOaTTwtcNlb8bilkPEILR4";
-
+            "&radius=1500&keyword= " + hospital_name + "&key=your google map access key";
+*/
+    // private String REQUEST_URL = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+current_position_x+",%20"+current_position_y+"&radius=1500&keyword="+hospital_name+"&key=your google map access key";
 
 
 
@@ -104,9 +126,9 @@ public class ShowHospitalMapActivity extends AppCompatActivity
             if (showHospitalMapActivity != null) {
                 switch (msg.what) {
                     case LOAD_SUCCESS:
-                        // jsonViewActivity.progressDialog.dismiss();
+                        //jsonViewActivity.progressDialog.dismiss();
                         String jsonString = (String)msg.obj;
-                        // jsonViewActivity.JSONText.setText(jsonString);
+                        //jsonViewActivity.JSONText.setText(jsonString);
                         break;
                 }
             }
@@ -203,19 +225,19 @@ public class ShowHospitalMapActivity extends AppCompatActivity
                 // 위도, 경도 얻기
                 JSONObject  geo = result.getJSONObject("geometry");
                 JSONObject  location = geo.getJSONObject("location");
-                String H_lat = location.getString("lat");
-                String H_lng = location.getString("lng");
+                H_lat = location.getString("lat");
+                H_lng = location.getString("lng");
 
                 // 이름 얻기
-                String H_name = result.getString("name");
+                H_name = result.getString("name");
 
 
 
-                HashMap<String, String> hospitalinfoMap = new HashMap<String, String>();
-                hospitalinfoMap.put("name", H_name);
+                hospitalinfoMap = new HashMap<String, String>();
+
                 hospitalinfoMap.put("lat", H_lat);
                 hospitalinfoMap.put("lng", H_lng);
-
+                hospitalinfoMap.put("name", H_name);
                 Hospital_infoList.add(hospitalinfoMap);
             }
 
@@ -229,36 +251,27 @@ public class ShowHospitalMapActivity extends AppCompatActivity
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////
 
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     @Override
     public void onMapReady(GoogleMap map) {
         //
+
+        getJSON();
+
+        try {
+
+            Thread.sleep(2000);
+            Log.d(TAG, "멈춤");
+
+        } catch (InterruptedException e) {
+
+            Log.d(TAG, "멈춤실패");
+
+        }
+
+
+
+
         LatLng home_position = new LatLng(current_position_x, current_position_y);
         //  CameraPosition cp = new CameraPosition.Builder().target(home_position).zoom(50).build();
 
@@ -276,100 +289,40 @@ public class ShowHospitalMapActivity extends AppCompatActivity
         // map.getUiSettings().setMyLocationButtonEnabled(true);
         // map.animateCamera(CameraUpdateFactory.zoomTo(15));
 
-
-
         BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.hospital_marker);
         Bitmap b=bitmapdraw.getBitmap();
         Bitmap smallMarker = Bitmap.createScaledBitmap(b, 200, 200, false);
-        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
-
-
-        markerOptions
-                .position(new LatLng(37.507012, 126.948367))
-                .title("본치과의원");
-        map.addMarker(markerOptions);
-        markerOptions
-                .position(new LatLng(37.5045356, 126.9494402))
-                .title("연세자연치과");
-        map.addMarker(markerOptions);
-        markerOptions
-                .position(new LatLng(37.5045356, 126.9528906))
-                .title("자작나무치과의원");
-        map.addMarker(markerOptions);
-        markerOptions
-                .position(new LatLng(37.49648699999999, 126.953057))
-                .title("연세하늘치과");
-        map.addMarker(markerOptions);
-        markerOptions
-                .position(new LatLng(37.5080694, 126.9613895))
-                .title("중앙치과의원");
-        map.addMarker(markerOptions);
-        markerOptions
-                .position(new LatLng(37.4994881, 126.9547449))
-                .title("서울본치과");
-        map.addMarker(markerOptions);
-        markerOptions
-                .position(new LatLng(37.4975898, 126.9531092))
-                .title("윌튼치과");
-        map.addMarker(markerOptions);
-        markerOptions
-                .position(new LatLng(37.50529179999999, 126.9482797))
-                .title("이화치과");
-        map.addMarker(markerOptions);
-        markerOptions
-                .position(new LatLng(37.5050418, 126.9462244))
-                .title("상도세브란스치과");
-        map.addMarker(markerOptions);
-        markerOptions
-                .position(new LatLng(37.5121799, 126.952168))
-                .title("미소를주는치과의원");
-        map.addMarker(markerOptions);
-        markerOptions
-                .position(new LatLng(37.5124021, 126.9512792))
-                .title("현대치과의원");
-        map.addMarker(markerOptions);
-        markerOptions
-                .position(new LatLng(37.5072918, 126.9622783))
-                .title("미래열린치과");
-        map.addMarker(markerOptions);
-        markerOptions
-                .position(new LatLng(37.4977736, 126.9528356))
-                .title("연세미소그린치과");
-        map.addMarker(markerOptions);
-        markerOptions
-                .position(new LatLng(37.5030976, 126.9511406))
-                .title("연세프라임치과");
-        map.addMarker(markerOptions);
-        markerOptions
-                .position(new LatLng(37.5068072, 126.9681646))
-                .title("김준수치과의원");
-        map.addMarker(markerOptions);
-        markerOptions
-                .position(new LatLng(37.5065974, 126.9621394))
-                .title("보스톤치과의원");
-        map.addMarker(markerOptions);
-        markerOptions
-                .position(new LatLng(37.5009312, 126.949863))
-                .title("연세어린이사랑치과");
-        map.addMarker(markerOptions);
-        markerOptions
-                .position(new LatLng(37.5037642, 126.9476409))
-                .title("웰플란트치과의원");
-        map.addMarker(markerOptions);
-        markerOptions
-                .position(new LatLng(37.5034865, 126.9513906))
-                .title("E-라임치과");
-        map.addMarker(markerOptions);
-        markerOptions
-                .position(new LatLng(37.5069585, 126.9615284))
-                .title("서진치과의원 Seojin Dental Clinic");
-        map.addMarker(markerOptions);
-
-        map.moveCamera(CameraUpdateFactory.newLatLng(home_position));
-        map.animateCamera(CameraUpdateFactory.zoomTo(15));
 
 
 
+
+        Map_hospital_x = null;
+        Map_hospital_y = null;
+        Map_hospital_name = null;
+
+        int idx ;
+
+
+        for (idx = 0; idx < Hospital_infoList.size(); idx++)
+        {
+
+            getMap = new HashMap<String, String >();
+
+            getMap = (HashMap)Hospital_infoList.get(idx);
+            Map_hospital_x = (String) getMap.get("lat");
+            Map_hospital_y = (String) getMap.get("lng");
+            Map_hospital_name = (String) getMap.get("name");
+
+            lat = Double.parseDouble(Map_hospital_x);
+            lng = Double.parseDouble(Map_hospital_y);
+
+            MarkerOptions placeMarker = new MarkerOptions();
+            placeMarker
+                    .position(new LatLng(lat, lng))
+                    .title(Map_hospital_name)
+                    .icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+            map.addMarker(placeMarker);
+        }
 
 
         map.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
@@ -385,6 +338,13 @@ public class ShowHospitalMapActivity extends AppCompatActivity
 
             }
         });
+    }
+
+    public void homeClicked(View v) {
+        Intent intent = new Intent(getApplicationContext(), AfterLoginActivity.class);
+        intent.putExtra("userID",userID);
+        startActivity(intent);
+        System.exit(10);
     }
 
 }

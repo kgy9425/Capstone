@@ -39,7 +39,7 @@ public class AfterLoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         Intent intent = getIntent();
         userID= intent.getStringExtra("userID");
-        Log.e("TAG",userID);
+      //  Log.e("TAG",userID);
         dialog = ProgressDialog.show(AfterLoginActivity.this, "",
                 "Validating user...", true);
         new Thread(new Runnable() {
@@ -90,11 +90,13 @@ public class AfterLoginActivity extends AppCompatActivity {
 
     public void chatbotClicked(View v) {
         Intent intent = new Intent(getApplicationContext(), ChatbotActivity.class);
+        intent.putExtra("userID",userID);
         startActivity(intent);
     }
 
     public void alarmClicked(View v){
         Intent intent = new Intent(getApplicationContext(), AlarmActivity.class);
+        intent.putExtra("userID",userID);
         startActivity(intent);
     }
 
