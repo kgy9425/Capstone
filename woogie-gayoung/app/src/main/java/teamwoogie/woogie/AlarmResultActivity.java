@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -28,5 +29,10 @@ public class AlarmResultActivity extends AppCompatActivity {
         alarmTime.setText(tempTime);
         repeatTime.setText(temp2Time);
 
+    }
+
+    public void homeClicked(View v) {
+        Intent intent = new Intent(getApplicationContext(), AfterLoginActivity.class);
+        startActivity(intent);
     }
 }

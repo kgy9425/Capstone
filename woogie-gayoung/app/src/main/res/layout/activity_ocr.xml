@@ -18,76 +18,55 @@
 
     <TextView
         android:id="@+id/OCRTextView"
-        android:layout_width="255dp"
-        android:layout_height="142dp"
+        android:layout_width="382dp"
+        android:layout_height="59dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="16dp"
         android:background="#fff"
         android:text="여기에 결과 출력됩니다."
         android:textColor="#169cdf"
         android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/Run"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.945"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="387dp" />
 
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="309dp"
-        android:layout_height="182dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="357dp"
+        android:layout_height="194dp"
 
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/camera"
-        app:layout_constraintHorizontal_bias="0.506"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.484" />
+        tools:layout_editor_absoluteX="14dp"
+        tools:layout_editor_absoluteY="63dp" />
     <!-- android:src="@mipmap/ic_launcher"-->
-    <Button
+
+    <ImgaeButton
         android:id="@+id/camera"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="212dp"
+        android:layout_width="118dp"
+        android:layout_height="53dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/button_camera"
         android:text="카메라 사진찍기"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/album" />
-
-    <Button
-        android:id="@+id/album"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="212dp"
-        android:text="앨범에서 선택하기"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/camera"
-        app:layout_constraintRight_toRightOf="parent" />
-
-
-    <Button
-        android:id="@+id/Run"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="9dp"
-        android:layout_marginLeft="9dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="100dp"
-        android:onClick="processImage"
-        android:text="RUN OCR"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/OCRTextView" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="298dp" />
+
+
+    <ImageButton
+        android:id="@+id/Run"
+        android:layout_width="154dp"
+        android:layout_height="113dp"
+        android:adjustViewBounds="true"
+        android:background="@android:color/transparent"
+        android:onClick="processImage"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/button_runocr"
+        android:text="RUN OCR"
+        android:layout_gravity="left"
+        tools:layout_editor_absoluteX="120dp"
+        tools:layout_editor_absoluteY="454dp" />
 
 </android.support.constraint.ConstraintLayout>
